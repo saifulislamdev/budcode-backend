@@ -4,7 +4,7 @@ There is a lack of access for resume builders (e.g., college students, new grads
 
 BudCode is an online platform that allows software developers, at any level (novice students to seasoned professionals), to collaborate. BudCode allows innovators to look for team members by posting their project ideas along with relevant information about the project (description, requirements, keywords, etc.) to the website.
 
-This is the backend service for the BudCode project. The project is created with the PERN stack (PostgreSQL, Express, React, and Node). It was developed by Abdul Imtiaz and Saiful Islam for our Spring 2022 Senior Design II course at The City College of New York.
+This is the backend service for the BudCode project. The project is created with the PERN stack (PostgreSQL, Express, React, and Node). The backend service was developed by Abdul Imtiaz and Saiful Islam for our Spring 2022 Senior Design II course at The City College of New York.
 
 ## Setup
 

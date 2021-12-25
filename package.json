@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "REST API for BudCode - A software development collaborative platform",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "server": "nodemon src/server.js",
     "start": "npm i && node src/server.js",
