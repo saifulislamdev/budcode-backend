@@ -1,4 +1,5 @@
 const express = require('express');
+const connectToDB = require('./utils/connectToDB');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -26,10 +27,11 @@ app.get('/', (req, res) => {
     res.json({ msg: 'Welcome to BudCode!' });
 });
 
+// start up server
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
 
 // connect to DB
+connectToDB();
