@@ -2,11 +2,10 @@
   "name": "budcode-backend",
   "version": "1.0.0",
   "description": "REST API for BudCode - A software development collaborative platform",
-  "main": "server.js",
-  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "server": "nodemon src/server.js",
-    "start": "npm i && node src/server.js",
+    "server": "nodemon src/app.js",
+    "start": "npm i && node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
