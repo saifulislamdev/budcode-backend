@@ -1,5 +1,5 @@
 const express = require('express');
-const connectToDB = require('./utils/connectToDB');
+// const { connectToDB } = require('./utils/db');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -34,4 +34,4 @@ app.listen(PORT, () => {
 });
 
 // connect to DB
-connectToDB();
+// connectToDB();
