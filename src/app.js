@@ -1,8 +1,10 @@
 const express = require('express');
-const { verifyDBConnection } = require('./utils/db');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
+
+const { verifyDBConnection } = require('./utils/db');
+const createTables = require('./utils/createTables');
 
 // use environment variables
 dotenv.config();
@@ -33,5 +35,8 @@ app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
-// connect to DB
-verifyDBConnection();
+// DB-related functions
+(async () => {
+  await verifyDBConnection();
+  await createTables();
+})();
