@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { pool } = require('../../../utils/db');
 const validatingBodyContent = require('../../../helpers/validatingBodyContent');
 
@@ -6,19 +7,14 @@ const signUp = async (req, res) => {
         const { username, password, email, firstName, lastName, gender } =
             req.body;
 
+        // verify if enough info is passed in through request body
         const required = {
             username: username,
             password: password,
             email: email,
             firstName: firstName,
         };
-
-        // verify if enough info is passed in through request body
-        const { isValid, invalidProperty } = validatingBodyContent(required);
-        if (!isValid)
-            return res
-                .status(400)
-                .json({ msg: `${invalidProperty} not indicated` });
+        validatingBodyContent(required, res);
 
         // verify if unique user (unique username and email)
         const query =
@@ -31,11 +27,15 @@ const signUp = async (req, res) => {
             return res.status(400).json({ msg: 'Email already taken' });
         }
 
+        // hash password
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         // create new user
         const statement = 'INSERT INTO "User" VALUES($1, $2, $3, $4, $5, $6)';
         await pool.query(statement, [
             username,
-            password,
+            hashedPassword,
             firstName,
             lastName,
             email,
