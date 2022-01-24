@@ -1,6 +1,6 @@
 # BudCode Backend
 
-This is the backend service for the BudCode project. The project is created with the PERN stack (PostgreSQL, Express, React, and Node). The backend service was developed by Abdul Imtiaz and Saiful Islam for our Spring 2022 Senior Design II course at The City College of New York.
+This is the backend service for the BudCode project. The project is created with the PERN stack (PostgreSQL, Express, React, and Node). The backend service was developed by Abdul Imtiaz and Saiful Islam for our Spring 2022 CSc 59867 Senior Design Project II course at The City College of New York.
 
 ## Context
 
@@ -55,11 +55,11 @@ In the `/src/routes/index.js` file, import your controllers and mount each contr
 
 Create a route file in `/src/routes` for each controller in `/src/routes/controllers` that will consist of the REST methods covered in the controller.
 
-- Write the middlewares for these routes in `src/routes/middlewares` folder.
-- Name a GET middleware as getModelName
-- Name a POST middleware as createModelName
-- Name a PUT/PATCH middleware as updateModelName
-- Name a DELETE middleware as deleteModelName
+-   Write the middlewares for these routes in `src/routes/middlewares` folder.
+-   Name a GET middleware as getModelName
+-   Name a POST middleware as createModelName
+-   Name a PUT/PATCH middleware as updateModelName
+-   Name a DELETE middleware as deleteModelName
 
 ## Available Scripts
 
