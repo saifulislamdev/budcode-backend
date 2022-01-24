@@ -1,7 +1,7 @@
 const models = require('../models');
 const { pool } = require('./db');
 
-async function createTables() {
+const createTables = async () => {
   // creates tables that are used in the app
   Object.entries(models).map((table) => {
     const name = table[0];
@@ -11,6 +11,6 @@ async function createTables() {
       else console.log(`${name} table created`);
     });
   });
-}
+};
 
 module.exports = createTables;
