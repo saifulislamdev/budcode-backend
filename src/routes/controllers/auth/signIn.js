@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const { pool } = require('../../../utils/db');
 const validatingBodyContent = require('../../../helpers/validatingBodyContent');
 
@@ -26,7 +28,11 @@ const signIn = async (req, res) => {
         if (!hasPasswordMatch)
             return res.status(400).json({ msg: 'No matching user found' });
 
-        return res.status(201).json({ msg: 'Login successful' });
+        const user = {
+            username: username,
+        };
+        const token = jwt.sign(user, process.env.JWT_SECRET);
+        return res.status(201).json({ token: token, msg: 'Login successful' });
     } catch (err) {
         return res.status(500).json({ msg: 'Internal server error' });
     }
