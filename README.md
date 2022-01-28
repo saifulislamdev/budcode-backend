@@ -51,6 +51,12 @@ Write functions associated with creating, reading, updating, and deleting tables
 
 ### REST Routes
 
+#### Existing routes
+
+All endpoints that are covered in our REST API are listed in `/endpoints.md` with information about each endpoint.
+
+#### Creating new routes
+
 In the `/src/routes/index.js` file, import your controllers and mount each controller to a specific route such as `/auth`. Keep in mind that all routes defined in `/src/routes/index.js` is automatically prefixed by `/api/` (as indicated in `/src/app.js`)
 
 Create a route file in `/src/routes` for each controller in `/src/routes/controllers` that will consist of the REST methods covered in the controller.
