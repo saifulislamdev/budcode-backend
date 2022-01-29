@@ -69,7 +69,7 @@ Create a route file in `/src/routes` for each controller in `/src/routes/control
 
 ## Available Scripts
 
-### `npm run server`
+### `npm run dev`
 
 Starts a nodemon server that watches changes to your JavaScript code and refresh the server without having to run node command after each change.
 
@@ -81,4 +81,4 @@ Starts a node server of the application.
 
 It should print `Server started on port 5000` and `Database connected` if everything ran correctly.
 
-To make code changes and view the changes on the server without having to rerun this script after each change, refer to the `npm run server` script.
+To make code changes and view the changes on the server without having to rerun this script after each change, refer to the `npm run dev` script.

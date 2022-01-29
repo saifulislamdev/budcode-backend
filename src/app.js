@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const { verifyDBConnection } = require('./utils/db');
 const createTables = require('./utils/createTables');
+const seedDB = require('./utils/seedDB');
 
 // use environment variables
 dotenv.config();
@@ -26,17 +27,14 @@ app.use(morgan(logFormat));
 app.use('/api', require('./routes'));
 
 app.get('/', (req, res) => {
-  res.json({ msg: 'Welcome to BudCode!' });
+    res.json({ msg: 'Welcome to BudCode!' });
 });
 
 // start up server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(PORT, async () => {
+    console.log(`Server started on port ${PORT}`);
+    await verifyDBConnection();
+    await createTables();
+    await seedDB();
 });
-
-// DB-related functions
-(async () => {
-  await verifyDBConnection();
-  await createTables();
-})();

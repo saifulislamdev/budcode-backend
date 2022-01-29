@@ -4,7 +4,7 @@
   "description": "REST API for BudCode - A software development collaborative platform",
   "main": "src/app.js",
   "scripts": {
-    "server": "nodemon src/app.js",
+    "dev": "nodemon src/app.js",
     "start": "npm i && node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/saifulislamdev/budcode-backend#readme",
   "dependencies": {
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

@@ -1,5 +1,5 @@
 const User =
-  'CREATE TABLE IF NOT EXISTS "User" (\
+    'CREATE TABLE IF NOT EXISTS "User" (\
     username VARCHAR(255), \
     password VARCHAR(255), \
     first_name VARCHAR(255) NOT NULL, \
