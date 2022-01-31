@@ -16,6 +16,19 @@ const options = [
             gender: 'Male',
         },
     },
+    {
+        method: 'POST',
+        url: `${PROXY}/api/auth/signup`,
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+            username: 'johndoe',
+            password: 'johndoe',
+            email: 'johndoe@gmail.com',
+            firstName: 'John',
+            lastName: 'Doe',
+            gender: 'Male',
+        },
+    },
 ];
 
 const seed = async () => {

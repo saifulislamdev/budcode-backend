@@ -11,7 +11,7 @@ Note: All routes are prefixed by `/api/`.
 | `/users/`         | GET `/users/:id`                              | Profile page                   |        |
 |                   | POST `/users/:id`                             | Sign up                        |        |
 |                   | PUT `/users/:id`                              | Profile page                   |        |
-| `/projects/`      | GET `/projects`                               | Project page                   |        |
+| `/projects/`      | GET `/projects`                               | Project search and suggestions |        |
 |                   | GET `/projects/:id`                           | Project page                   |        |
 |                   | GET `/projects/filters`                       | Project search and suggestions |        |
 |                   | GET `/projects?filter1=value1&filter2=value2` | Project search and suggestions |        |
@@ -24,9 +24,9 @@ Note: All routes are prefixed by `/api/`.
 |                   | PUT `/projects/:id`                           | Project page                   |        |
 |                   | DELETE `/projects/:id`                        | Project page                   |        |
 |                   | DELETE `/projects/:id/requests/`              | Member approval                |        |
-| `/notifications/` | GET `/notifications/:id`                      | Notification system            |        |
+| `/notifications/` | GET `/notifications/user/:id`                 | Notification system            |        |
 | `/updates/`       | GET `/updates/user/:id`                       | Feed page                      |        |
-| `/ratings/`       | POST `/ratings/`                              | Profile page                   |        |
+| `/ratings/`       | POST `/ratings/`                              | Ratings and reviews            |        |
 
 Frontend components/pages that use Saiful's (@saifulislamdev) endpoints:
 
@@ -111,6 +111,18 @@ Edit user profile info
 Get info of all projects
 
 ## GET `/projects/:id`
+
+### Description
+
+Get information about a project (basic info, skills, tags, members, updates, etc.)
+
+### Route Parameters
+
+`id`: ID of project
+
+### Result
+
+If successful, results in `200` status code and project info in the form of key-value pairs. Otherwise, results in `400` or `500` error status codes with messages about the error.
 
 ### Description
 

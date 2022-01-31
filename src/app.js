@@ -26,10 +26,6 @@ app.use(morgan(logFormat));
 // this mounts routes/index.js at the route `/api`
 app.use('/api', require('./routes'));
 
-app.get('/', (req, res) => {
-    res.json({ msg: 'Welcome to BudCode!' });
-});
-
 // start up server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
