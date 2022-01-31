@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const { pool } = require('../../../utils/db');
 
 const getProject = async (req, res) => {
@@ -55,12 +56,26 @@ const getProject = async (req, res) => {
             [id]
         );
 
+        // check if user can edit the project
+        const token = req.headers['authorization']; // token comes in an authorization header
+        let canEdit = false;
+        // if no token passed in
+        if (typeof token !== 'undefined') {
+            try {
+                let { username } = jwt.verify(token, process.env.JWT_SECRET);
+                if (members.includes(username)) canEdit = true;
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
         const projectInfo = {
             ...basicInfo['0'],
             skills,
             tags,
             members,
             updates,
+            canEdit: canEdit,
         };
 
         res.status(200).json(projectInfo);

@@ -116,6 +116,10 @@ Get info of all projects
 
 Get information about a project (basic info, skills, tags, members, updates, etc.)
 
+### Header
+
+`authorization`: token (if exists)
+
 ### Route Parameters
 
 `id`: ID of project
