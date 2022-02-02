@@ -1,4 +1,5 @@
 const Project = require('./Project');
+const ProjectFollower = require('./ProjectFollower');
 const ProjectMember = require('./ProjectMember');
 const ProjectSkill = require('./ProjectSkill');
 const ProjectStatusType = require('./ProjectStatusType');
@@ -16,5 +17,6 @@ module.exports = {
     ProjectSkill,
     ProjectTag,
     ProjectMember,
+    ProjectFollower,
     ProjectUpdate,
 };

@@ -12,14 +12,14 @@ Note: All routes are prefixed by `/api/`.
 |                   | POST `/users/:id`                             | Sign up                        |        |
 |                   | PUT `/users/:id`                              | Profile page                   |        |
 | `/projects/`      | GET `/projects`                               | Project search and suggestions |        |
-|                   | GET `/projects/:id`                           | Project page                   |        |
+|                   | GET `/projects/:id`                           | Project page                   | ✅     |
 |                   | GET `/projects/filters`                       | Project search and suggestions |        |
 |                   | GET `/projects?filter1=value1&filter2=value2` | Project search and suggestions |        |
 |                   | GET `/projects/suggestions/:id`               | Project search and suggestions |        |
 |                   | GET `/projects/:id/requests`                  | Member approval                |        |
 |                   | POST `/projects`                              | Project creation               |        |
 |                   | POST `/projects/:id/requests`                 | Member approval                |        |
-|                   | POST `/projects/:id/follow`                   | Project page                   |        |
+|                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
 |                   | POST `/projects/:id/updates`                  | Feed page                      |        |
 |                   | PUT `/projects/:id`                           | Project page                   |        |
 |                   | DELETE `/projects/:id`                        | Project page                   |        |
@@ -57,7 +57,7 @@ Sign in
 
 ### Result
 
-If successful, results in `201` status code, token (JWT), and message. Otherwise, results in `400` or `500` error status codes with messages about the error.
+If successful, results in `201` status code, token (JWT), and message. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 ## POST `/auth/signup`
 
@@ -76,7 +76,7 @@ Sign up
 
 ### Result
 
-If successful, results in `201` status code and message. Otherwise, results in `400` or `500` error status codes with messages about the error.
+If successful, results in `201` status code and message. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 ## GET `/users/:id`
 
@@ -90,7 +90,7 @@ Get user profile info (and ratings)
 
 ### Result
 
-If successful, results in `200` status code and profile info in the form of key-value pairs. Otherwise, results in `400` or `500` error status codes with messages about the error.
+If successful, results in `200` status code and profile info in the form of key-value pairs. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 ## POST `/users/:id`
 
@@ -126,7 +126,7 @@ Get information about a project (basic info, skills, tags, members, updates, etc
 
 ### Result
 
-If successful, results in `200` status code and project info in the form of key-value pairs. Otherwise, results in `400` or `500` error status codes with messages about the error.
+If successful, results in `200` status code and project info in the form of key-value pairs. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 ### Description
 
@@ -173,6 +173,18 @@ User request to join a project with the IDs of project and requesting user (proj
 ### Description
 
 User follows a project
+
+### Header
+
+`authorization`: token (if exists)
+
+### Route Parameters
+
+`id`: ID of project
+
+### Result
+
+If successful, results in `201` status code with success message. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 ## POST `/projects/:id/updates`
 

@@ -32,7 +32,9 @@ const signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // create new user
-        const statement = 'INSERT INTO "User" VALUES($1, $2, $3, $4, $5, $6)';
+        const statement =
+            'INSERT INTO "User"(username, password, first_name, last_name, email, gender) \
+            VALUES($1, $2, $3, $4, $5, $6)';
         await pool.query(statement, [
             username,
             hashedPassword,
