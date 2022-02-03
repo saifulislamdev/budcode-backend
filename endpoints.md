@@ -22,13 +22,12 @@ Note: All routes are prefixed by `/api/`.
 |                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
 |                   | POST `/projects/:id/updates`                  | Feed page                      |        |
 |                   | PUT `/projects/:id`                           | Project page                   | ✅     |
-|                   | DELETE `/projects/:id`                        | Project page                   |        |
 |                   | DELETE `/projects/:id/requests/`              | Member approval                |        |
 | `/notifications/` | GET `/notifications/user/:id`                 | Notification system            |        |
 | `/updates/`       | GET `/updates/user/:id`                       | Feed page                      |        |
 | `/ratings/`       | POST `/ratings/`                              | Ratings and reviews            |        |
 
-Frontend components/pages that use Saiful's (@saifulislamdev) endpoints:
+Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
 
 -   Member approval
 -   Notification system
