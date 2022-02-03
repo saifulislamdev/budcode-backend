@@ -21,7 +21,7 @@ Note: All routes are prefixed by `/api/`.
 |                   | POST `/projects/:id/requests`                 | Member approval                |        |
 |                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
 |                   | POST `/projects/:id/updates`                  | Feed page                      |        |
-|                   | PUT `/projects/:id`                           | Project page                   |        |
+|                   | PUT `/projects/:id`                           | Project page                   | ✅     |
 |                   | DELETE `/projects/:id`                        | Project page                   |        |
 |                   | DELETE `/projects/:id/requests/`              | Member approval                |        |
 | `/notifications/` | GET `/notifications/user/:id`                 | Notification system            |        |
@@ -178,6 +178,7 @@ User follows a project
 
 `authorization`: token (if exists)
 
+
 ### Route Parameters
 
 `id`: ID of project
@@ -198,11 +199,34 @@ Create new project update for a project with the project ID
 
 Edit project info (and remove members)
 
+### Header
+
+`authorization`: token (if exists)  
+`Content-Type`: `application/json`
+
+### Route Parameters
+
+`id`: ID of project
+
+### Body Parameters
+
+If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be provided.  
+
+`name`: project name  
+`description`: project description  
+`status`: project status ("In Progress" or "Complete")  
+`skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
+`tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
+`members`: project members in the form of an array (e.g. ["johndoe", "janedoe"]) so any member not listed is essentially removed/kicked from the project  
+### Result
+
+If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
+
 ## DELETE `/projects/:id`
 
 ### Description
 
-Mark a project as completed or discontinued
+Mark a project as complete or discontinued
 
 ## DELETE `/projects/:id/requests/`
 
