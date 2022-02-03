@@ -196,7 +196,7 @@ Create new project update for a project with the project ID
 
 ### Description
 
-Edit project info (and remove members)
+Edit project info, change status of project (e.g. to complete), and remove project members
 
 ### Header
 
@@ -217,6 +217,7 @@ If any of these values are not passed in, the value will remain the same. If any
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
 `tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
 `members`: project members in the form of an array (e.g. ["johndoe", "janedoe"]) so any member not listed is essentially removed/kicked from the project  
+
 ### Result
 
 If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
