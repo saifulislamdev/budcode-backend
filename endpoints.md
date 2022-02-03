@@ -16,7 +16,7 @@ Note: All routes are prefixed by `/api/`.
 |                   | GET `/projects/filters`                       | Project search and suggestions |        |
 |                   | GET `/projects?filter1=value1&filter2=value2` | Project search and suggestions |        |
 |                   | GET `/projects/suggestions/:id`               | Project search and suggestions |        |
-|                   | GET `/projects/:id/requests`                  | Member approval                |        |
+|                   | GET `/projects/:id/requests`                  | Member approval                | ✅     |
 |                   | POST `/projects`                              | Project creation               |        |
 |                   | POST `/projects/:id/requests`                 | Member approval                |        |
 |                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
@@ -153,7 +153,19 @@ Get project suggestions for a user
 
 ### Description
 
-Get all project requests with the ID of project
+Get all project join/membership requests with the ID of project
+
+### Header
+
+`authorization`: token (if exists)
+
+### Route Parameters
+
+`id`: ID of project
+
+### Result
+
+If successful, results in `200` status code and member requests in JSON. Otherwise, results in a `401` or `500` error status code with a message about the error.
 
 ## POST `/projects`
 

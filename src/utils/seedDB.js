@@ -29,6 +29,32 @@ const options = [
             gender: 'Male',
         },
     },
+    {
+        method: 'POST',
+        url: `${PROXY}/api/auth/signup`,
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+            username: 'janedoe',
+            password: 'janedoe',
+            email: 'janedoe@gmail.com',
+            firstName: 'Jane',
+            lastName: 'Doe',
+            gender: 'Female',
+        },
+    },
+    {
+        method: 'POST',
+        url: `${PROXY}/api/auth/signup`,
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+            username: 'bob',
+            password: 'cat',
+            email: 'bob@gmail.com',
+            firstName: 'Bob',
+            lastName: 'Johnson',
+            gender: 'Male',
+        },
+    },
 ];
 
 const seed = async () => {

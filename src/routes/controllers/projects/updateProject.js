@@ -6,19 +6,6 @@ const updateProject = async (req, res) => {
         const { id } = req.params; // id of project
         const { name, description, status, skills, tags, members } = req.body;
 
-        // check if user is project creator for valid project editing privileges
-        const { rows: isProjectCreator } = await pool.query(
-            'SELECT exists( \
-            SELECT creator \
-            FROM "Project" \
-            WHERE id = $1 AND creator = $2)',
-            [id, username]
-        );
-        if (!isProjectCreator[0].exists)
-            return res
-                .status(401)
-                .json({ msg: 'Not the creator of this project' });
-
         // change project name if passed in body
         if (typeof name !== 'undefined')
             await pool.query('UPDATE "Project" SET name = $1 WHERE id = $2', [
