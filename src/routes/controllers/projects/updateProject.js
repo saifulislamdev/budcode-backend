@@ -67,7 +67,7 @@ const updateProject = async (req, res) => {
         // change project members if passed in body
         if (typeof members !== 'undefined') {
             if (!members.includes(username))
-                res.status(400).json({
+                return res.status(400).json({
                     msg: 'Cannot remove yourself as you are the project creator',
                 });
             // remove all members currently listed for the project
@@ -87,10 +87,10 @@ const updateProject = async (req, res) => {
             }
         }
 
-        res.sendStatus(204);
+        return res.sendStatus(204);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Internal server error' });
+        return res.status(500).json({ msg: 'Internal server error' });
     }
 };
 

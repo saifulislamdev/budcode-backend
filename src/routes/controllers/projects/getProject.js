@@ -6,13 +6,17 @@ const getProject = async (req, res) => {
         const { id } = req.params;
 
         // check if project exists
-        const { rowCount: projectExists } = await pool.query(
-            'SELECT id FROM "Project" WHERE "Project".id = $1',
+        const { rows: projectExists } = await pool.query(
+            'SELECT exists( \
+                SELECT id \
+                FROM "Project" \
+                WHERE "Project".id = $1 \
+            )',
             [id]
         );
 
-        if (projectExists === 0)
-            res.status(400).json({ msg: 'No matching project exists' });
+        if (!projectExists[0].exists)
+            return res.status(400).json({ msg: 'No matching project exists' });
 
         // gather basic info about project
         const { rows: basicInfo } = await pool.query(
@@ -56,18 +60,34 @@ const getProject = async (req, res) => {
             [id]
         );
 
-        // check if user can edit the project
         const token = req.headers['authorization']; // token comes in an authorization header
+
+        // check if user can edit the project
         let canEdit = false;
-        // if no token passed in
         if (typeof token !== 'undefined') {
             try {
                 let { username } = jwt.verify(token, process.env.JWT_SECRET);
-                if (members.includes(username)) canEdit = true;
+
+                const { rows: isProjectCreator } = await pool.query(
+                    'SELECT exists( \
+                        SELECT creator \
+                        FROM "Project" \
+                        WHERE id = $1 AND creator = $2)',
+                    [id, username]
+                );
+                if (isProjectCreator[0].exists) canEdit = true;
             } catch (err) {
                 console.log(err);
             }
         }
+
+        // check if user can follow the project
+
+        // check if user is following the project already
+
+        // check if user can request to join the project
+
+        // check if user requested to join the project already
 
         const projectInfo = {
             ...basicInfo['0'],
@@ -78,10 +98,10 @@ const getProject = async (req, res) => {
             canEdit: canEdit,
         };
 
-        res.status(200).json(projectInfo);
+        return res.status(200).json(projectInfo);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Internal server error' });
+        return res.status(500).json({ msg: 'Internal server error' });
     }
 };
 

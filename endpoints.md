@@ -177,7 +177,24 @@ Create new project
 
 ### Description
 
-User request to join a project with the IDs of project and requesting user (project creator is notified)
+User request to join a project
+
+### Headers
+
+`authorization`: token (if exists)
+`Content-Type`: `application/json`
+
+### Route Parameters
+
+`id`: ID of project
+
+### Body Parameters
+
+`message`: Message that the user sends when requesting to join the project
+
+### Result
+
+If successful, results in `201` status code with success message. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
 ## POST `/projects/:id/follow`
 

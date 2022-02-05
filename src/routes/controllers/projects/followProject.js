@@ -14,7 +14,9 @@ const followProject = async (req, res) => {
             );
 
         if (prevFollowed && prevFollowRecord[0].status)
-            res.status(400).json({ msg: 'Already following the project' });
+            return res
+                .status(400)
+                .json({ msg: 'Already following the project' });
 
         if (!prevFollowed) {
             // user has not followed the project in the past
@@ -31,10 +33,10 @@ const followProject = async (req, res) => {
                 [id, username]
             );
         }
-        res.status(201).json({ msg: 'Now following project' });
+        return res.status(201).json({ msg: 'Now following project' });
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Internal server error' });
+        return res.status(500).json({ msg: 'Internal server error' });
     }
 };
 
