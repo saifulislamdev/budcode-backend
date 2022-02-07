@@ -5,6 +5,7 @@ const createMemberRequest = require('./controllers/projects/createMemberRequest'
 const followProject = require('./controllers/projects/followProject');
 const getMemberRequests = require('./controllers/projects/getMemberRequests');
 const getProject = require('./controllers/projects/getProject');
+const manageMemberRequest = require('./controllers/projects/manageMemberRequest');
 const updateProject = require('./controllers/projects/updateProject');
 
 const authenticateToken = require('./middlewares/authenticateToken');
@@ -20,5 +21,11 @@ router.get(
 router.post('/:id/follow', authenticateToken, followProject);
 router.post('/:id/requests', authenticateToken, createMemberRequest);
 router.put('/:id', authenticateToken, verifyProjectCreator, updateProject);
+router.delete(
+    '/requests/:id',
+    authenticateToken,
+    verifyProjectCreator,
+    manageMemberRequest
+);
 
 module.exports = router;

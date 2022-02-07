@@ -14,9 +14,9 @@ const verifyProjectCreator = async (req, res, next) => {
             [id, username]
         );
         if (!isProjectCreator[0].exists)
-            return res
-                .status(401)
-                .json({ msg: 'Not the creator of this project' });
+            return res.status(401).json({
+                msg: 'You must be the project creator in order to perform this feature',
+            });
 
         next();
     } catch (err) {

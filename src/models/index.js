@@ -1,4 +1,5 @@
 const JoinStatusType = require('./JoinStatusType');
+const NotificationType = require('./NotificationType');
 const Project = require('./Project');
 const ProjectFollower = require('./ProjectFollower');
 const ProjectJoinRequest = require('./ProjectJoinRequest');
@@ -8,6 +9,7 @@ const ProjectStatusType = require('./ProjectStatusType');
 const ProjectTag = require('./ProjectTag');
 const ProjectUpdate = require('./ProjectUpdate');
 const User = require('./User');
+const UserNotification = require('./UserNotification');
 
 // order matters when exporting
 // this is the order that tables are created
@@ -15,7 +17,9 @@ const User = require('./User');
 module.exports = {
     ProjectStatusType,
     JoinStatusType,
+    NotificationType,
     User,
+    UserNotification,
     Project,
     ProjectFollower,
     ProjectJoinRequest,

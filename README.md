@@ -29,7 +29,17 @@ npm i
 Create a `.env` file in the root of the repository with the following environment variables.
 
 ```bash
+# Port Number for API
 PORT=5000 # value shown is default
+
+# Database config
+PGHOST=YOUR_DATABASE_HOST_HERE
+PGUSER=YOUR_DATABASE_USERNAME_HERE
+PGDATABASE=YOUR_DATABASE_NAME_HERE
+PGPASS=YOUR_DATABASE_PASSWORD_HERE # not needed if there is no password
+PORT=YOUR_DATABASE_PORT_HERE # not needed if you don't find necessary
+
+JWT_SECRET=YOUR_SECRET_HERE
 ```
 
 ## Repo Structure
@@ -47,7 +57,7 @@ Write any utility functions in `src/utils` folder
 
 ### Database functions
 
-Write functions associated with creating, reading, updating, and deleting tables in `src/models` folder
+Write table creation statements in `src/models` folder
 
 ### REST Routes
 

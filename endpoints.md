@@ -18,11 +18,11 @@ Note: All routes are prefixed by `/api/`.
 |                   | GET `/projects/suggestions/:id`               | Project search and suggestions |        |
 |                   | GET `/projects/:id/requests`                  | Member approval                | ✅     |
 |                   | POST `/projects`                              | Project creation               |        |
-|                   | POST `/projects/:id/requests`                 | Member approval                |        |
+|                   | POST `/projects/:id/requests`                 | Member approval                | ✅     |
 |                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
 |                   | POST `/projects/:id/updates`                  | Feed page                      |        |
 |                   | PUT `/projects/:id`                           | Project page                   | ✅     |
-|                   | DELETE `/projects/:id/requests/`              | Member approval                |        |
+|                   | DELETE `/projects/requests/:id`               | Member approval                | ✅     |
 | `/notifications/` | GET `/notifications/user/:id`                 | Notification system            |        |
 | `/updates/`       | GET `/updates/user/:id`                       | Feed page                      |        |
 | `/ratings/`       | POST `/ratings/`                              | Ratings and reviews            |        |
@@ -257,11 +257,26 @@ If successful, results in `204` status code. Otherwise, results in a `400`, `401
 
 Mark a project as complete or discontinued
 
-## DELETE `/projects/:id/requests/`
+## DELETE `/projects/requests/:id`
 
 ### Description
 
 Approve/reject request to join a project (requesting user is notified)
+
+### Header
+
+`authorization`: token (if exists)
+`Content-Type`: `application/json`
+
+### Route Parameters
+`id`: ID of join request
+
+### Body Parameters
+`decision`: Boolean that specifies whether the join request is accepted or denied (`true` = accepted, `false` = denied)
+
+### Result
+
+If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
 ## GET `/notifications/:id`
 
