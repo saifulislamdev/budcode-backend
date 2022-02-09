@@ -17,7 +17,7 @@ Note: All routes are prefixed by `/api/`.
 |                   | GET `/projects?filter1=value1&filter2=value2` | Project search and suggestions |        |
 |                   | GET `/projects/suggestions/:id`               | Project search and suggestions |        |
 |                   | GET `/projects/:id/requests`                  | Member approval                | ✅     |
-|                   | POST `/projects`                              | Project creation               |        |
+| `/projects/`      | POST `/projects`                              | Project creation               | ✅     |
 |                   | POST `/projects/:id/requests`                 | Member approval                | ✅     |
 |                   | POST `/projects/:id/follow`                   | Project page                   | ✅     |
 |                   | POST `/projects/:id/updates`                  | Feed page                      |        |
@@ -173,6 +173,21 @@ If successful, results in `200` status code and member requests in JSON. Otherwi
 
 Create new project
 
+### Headers
+
+`authorization`: token (if exists)
+
+### Body Parameters
+
+`name`: project name  
+`description`: project description  
+`skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
+`tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])
+
+### Result
+
+If successful, results in `201` status code with success message. Otherwise, results in a `401` or `500` error status code with a message about the error.
+
 ## POST `/projects/:id/requests`
 
 ### Description
@@ -181,7 +196,7 @@ User request to join a project
 
 ### Headers
 
-`authorization`: token (if exists)
+`authorization`: token (if exists)  
 `Content-Type`: `application/json`
 
 ### Route Parameters
@@ -205,7 +220,6 @@ User follows a project
 ### Header
 
 `authorization`: token (if exists)
-
 
 ### Route Parameters
 
@@ -238,14 +252,14 @@ Edit project info, change status of project (e.g. to complete), and remove proje
 
 ### Body Parameters
 
-If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be provided.  
+If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be provided.
 
 `name`: project name  
 `description`: project description  
 `status`: project status ("In Progress" or "Complete")  
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
 `tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
-`members`: project members in the form of an array (e.g. ["johndoe", "janedoe"]) so any member not listed is essentially removed/kicked from the project  
+`members`: project members in the form of an array (e.g. ["johndoe", "janedoe"]) so any member not listed is essentially removed/kicked from the project
 
 ### Result
 
@@ -265,13 +279,15 @@ Approve/reject request to join a project (requesting user is notified)
 
 ### Header
 
-`authorization`: token (if exists)
+`authorization`: token (if exists)  
 `Content-Type`: `application/json`
 
 ### Route Parameters
+
 `id`: ID of join request
 
 ### Body Parameters
+
 `decision`: Boolean that specifies whether the join request is accepted or denied (`true` = accepted, `false` = denied)
 
 ### Result
