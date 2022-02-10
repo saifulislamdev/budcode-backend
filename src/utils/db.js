@@ -6,13 +6,27 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const { PGUSER, PGHOST, PGDATABASE, PGPASS, PGPORT } = process.env;
 
-const pool = new Pool({
-    user: PGUSER,
-    host: PGHOST,
-    database: PGDATABASE,
-    password: PGPASS,
-    port: PGPORT,
-});
+let pool;
+
+// DATABASE_URL will exist if server is deployed to heroku
+if (process.env.DATABASE_URL) {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
+}
+
+else {
+    pool = new Pool({
+        user: PGUSER,
+        host: PGHOST,
+        database: PGDATABASE,
+        password: PGPASS,
+        port: PGPORT,
+    });
+}
 
 const verifyDBConnection = async () => {
     try {
