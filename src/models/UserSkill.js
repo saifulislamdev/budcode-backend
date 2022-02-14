@@ -3,7 +3,7 @@ const UserSkill =
         username VARCHAR(255), \
         skill VARCHAR(255), \
         PRIMARY KEY (username, skill), \
-        FOREIGN KEY (username) REFERENCES "User"(username), \
+        FOREIGN KEY (username) REFERENCES "User"(username) \
     );';
 
 module.exports = UserSkill;
