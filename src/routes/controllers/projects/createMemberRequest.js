@@ -7,15 +7,13 @@ const createMemberRequest = async (req, res) => {
         const { message } = req.body;
 
         // check if project exists and is not completed
-        const { rows: validProject } = await pool.query(
-            'SELECT exists( \
-                SELECT id \
+        const { rows: project, rowCount: validProject } = await pool.query(
+            'SELECT creator, name \
                 FROM "Project" \
-                WHERE id = $1 AND status = \'In Progress\' \
-            )',
+                WHERE id = $1 AND status = \'In Progress\'',
             [id]
         );
-        if (!validProject[0].exists)
+        if (!validProject)
             return res.status(400).json({
                 msg: 'Project may not exist or is not accepting requests currently if it exists',
             });
@@ -51,7 +49,18 @@ const createMemberRequest = async (req, res) => {
             [id, username, message || '']
         );
 
-        // TODO: add notification
+        // give project creator a notification
+        const { creator: projectCreator, name: projectName } = project[0];
+        await pool.query(
+            'INSERT INTO "UserNotification"(username, subject, body, type) VALUES($1, $2, $3, $4)',
+            [
+                projectCreator,
+                `New member request for ${projectName}`,
+                `${username} has requested to join your ${projectName} project!`,
+                'Request',
+            ]
+        );
+
         return res.status(201).json({ msg: 'Request made' });
     } catch (err) {
         console.log(err);

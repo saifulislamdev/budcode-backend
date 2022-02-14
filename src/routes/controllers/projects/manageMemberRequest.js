@@ -5,6 +5,8 @@ const manageMemberRequest = async (req, res) => {
         const { id } = req.params; // id of join request
         const { decision } = req.body; // decision made by project creator (if true, accepted; if false, denied)
 
+        // TODO: verify project creator
+
         // verify decision is passed in
         if (typeof decision !== 'boolean')
             return res
@@ -56,7 +58,7 @@ const manageMemberRequest = async (req, res) => {
                 'INSERT INTO "UserNotification"(username, subject, body, type) VALUES($1, $2, $3, $4)',
                 [
                     requestingUser,
-                    'Join request accepted!',
+                    'Join request accepted',
                     `Your request to join ${projectName} has been accepted by the project creator!`,
                     'Request',
                 ]

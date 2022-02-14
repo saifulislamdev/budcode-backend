@@ -2,13 +2,13 @@
 
 All endpoints that are covered in our REST API are listed here with supporting information.
 
-Note: All routes are prefixed by `/api/`.
+Note: All routes are prefixed by `/api`.
 
 | Prefix            | Endpoint                                      | Frontend Component/Page        | Status |
 | ----------------- | --------------------------------------------- | ------------------------------ | ------ |
 | `/auth/`          | POST `/auth/signin`                           | Sign in                        | ✅     |
 |                   | POST `/auth/signup`                           | Sign up                        | ✅     |
-| `/users/`         | GET `/users/:id`                              | Profile page                   |        |
+| `/users/`         | GET `/users/:id`                              | Profile page                   | ✅     |
 |                   | POST `/users/:id`                             | Sign up                        |        |
 |                   | PUT `/users/:id`                              | Profile page                   |        |
 | `/projects/`      | GET `/projects`                               | Project search and suggestions |        |
