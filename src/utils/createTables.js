@@ -3,7 +3,7 @@ const { pool } = require('./db');
 
 const createTables = async () => {
     // creates tables that are used in the app
-    for(const [name, creationStatement] of Object.entries(models)) {
+    for (const [name, creationStatement] of Object.entries(models)) {
         try {
             await pool.query(creationStatement);
             console.log(`${name} table created`);

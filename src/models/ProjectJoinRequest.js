@@ -1,7 +1,7 @@
 const ProjectJoinRequest =
     'CREATE TABLE IF NOT EXISTS "ProjectJoinRequest"( \
         id SERIAL, \
-        project_id SERIAL NOT NULL, \
+        project_id INT, \
         username VARCHAR(255) NOT NULL, \
         message VARCHAR(255), \
         status JoinStatusType DEFAULT \'Requested\' NOT NULL, \
@@ -9,6 +9,7 @@ const ProjectJoinRequest =
         PRIMARY KEY (id), \
         UNIQUE (project_id, username), \
         FOREIGN KEY (project_id) REFERENCES "Project"(id), \
-        FOREIGN KEY (username) REFERENCES "User"(username));';
+        FOREIGN KEY (username) REFERENCES "User"(username) \
+    );';
 
 module.exports = ProjectJoinRequest;

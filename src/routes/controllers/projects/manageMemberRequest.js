@@ -17,6 +17,7 @@ const manageMemberRequest = async (req, res) => {
         const { rows: request, rowCount: requestExists } = await pool.query(
             'SELECT \
                 "ProjectJoinRequest".username, \
+                "Project".id, \
                 "Project".name, \
                 "ProjectJoinRequest".created_at \
              FROM "ProjectJoinRequest" \
@@ -32,7 +33,11 @@ const manageMemberRequest = async (req, res) => {
             return res.status(400).json({
                 msg: 'Join request may not exist, has been managed already, or the respective project is completed already',
             });
-        const { username: requestingUser, name: project } = request[0];
+        const {
+            username: requestingUser,
+            id: projectId,
+            name: projectName,
+        } = request[0];
 
         // change join request status
         const newStatus = decision ? 'Accepted' : 'Denied';
@@ -41,20 +46,24 @@ const manageMemberRequest = async (req, res) => {
             [newStatus, id]
         );
 
-        // notify user of their acceptance (if accepted)
+        // add user as a project member and notify user of their acceptance (if accepted)
         if (decision) {
+            await pool.query(
+                'INSERT INTO "ProjectMember"(project_id, username) VALUES($1, $2)',
+                [projectId, requestingUser]
+            );
             await pool.query(
                 'INSERT INTO "UserNotification"(username, subject, body, type) VALUES($1, $2, $3, $4)',
                 [
                     requestingUser,
                     'Join request accepted!',
-                    `Your request to join ${project} has been accepted by the project creator!`,
+                    `Your request to join ${projectName} has been accepted by the project creator!`,
                     'Request',
                 ]
             );
         }
 
-        return res.status(204).json({});
+        return res.sendStatus(204);
     } catch (err) {
         console.log(err);
         return res.status(500).json({ msg: 'Internal server error' });

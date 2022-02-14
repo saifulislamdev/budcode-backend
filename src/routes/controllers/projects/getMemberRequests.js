@@ -1,11 +1,10 @@
 const { pool } = require('../../../utils/db');
 
-// TODO: might want to send more information
-
 const getMemberRequests = async (req, res) => {
     try {
         const { id } = req.params; // id of project
 
+        // TODO: order by time
         let { rows: memberRequests } = await pool.query(
             'SELECT "ProjectJoinRequest".id, "ProjectJoinRequest".username, "ProjectJoinRequest".message, "ProjectJoinRequest".created_at \
                 FROM "ProjectJoinRequest" \

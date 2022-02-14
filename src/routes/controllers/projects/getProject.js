@@ -20,13 +20,25 @@ const getProject = async (req, res) => {
 
         // gather basic info about project
         const { rows: basicInfo } = await pool.query(
-            'SELECT "Project".id, "Project".name, "Project".description, "Project".status, \
-            "User".first_name AS "creatorFirstName", "User".last_name as "creatorLastName", "User".email as "creatorEmail" \
-                FROM "Project" \
-                JOIN "User" ON "User".username = "Project".creator \
-                WHERE "Project".id = $1',
+            'SELECT \
+                "Project".id, \
+                "Project".name, \
+                "Project".description, \
+                "Project".status, \
+                "Project".created_at AS "createdAt", \
+                "Project".creator AS "creatorUserName", \
+                "User".first_name AS "creatorFirstName", \
+                "User".last_name AS "creatorLastName", \
+                "User".email AS "creatorEmail" \
+            FROM "Project" \
+            JOIN "User" ON "User".username = "Project".creator \
+            WHERE "Project".id = $1',
             [id]
         );
+
+        // TODO: links
+
+        // TODO: get rid of skill and interest table?
 
         // gather the project's skills
         let { rows: skills } = await pool.query({
@@ -45,12 +57,16 @@ const getProject = async (req, res) => {
         tags = tags.flat(); // flatten nested array
 
         // gather the project's members
-        let { rows: members } = await pool.query({
-            text: 'SELECT username FROM "ProjectMember" WHERE project_id = $1',
-            values: [id],
-            rowMode: 'array',
-        });
-        members = members.flat(); // flatten nested array
+        const { rows: members } = await pool.query(
+            'SELECT username, created_at AS "joinedAt" \
+            FROM "ProjectMember" \
+            WHERE project_id = $1',
+            [id]
+        );
+
+        // TODO: get number of project followers
+
+        // TODO: get number of join requests
 
         // gather the updates sent from the project's members
         const { rows: updates } = await pool.query(
@@ -81,13 +97,15 @@ const getProject = async (req, res) => {
             }
         }
 
-        // check if user can follow the project
+        // TODO: check if user can follow the project
 
-        // check if user is following the project already
+        // TODO: check if user is following the project already
 
-        // check if user can request to join the project
+        // TODO: check if user can request to join the project
 
-        // check if user requested to join the project already
+        // TODO: check if user requested to join the project already
+
+        // TODO: (nice to have) check if user and project have mutual skills
 
         const projectInfo = {
             ...basicInfo['0'],

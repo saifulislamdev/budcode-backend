@@ -51,6 +51,7 @@ const createMemberRequest = async (req, res) => {
             [id, username, message || '']
         );
 
+        // TODO: add notification
         return res.status(201).json({ msg: 'Request made' });
     } catch (err) {
         console.log(err);

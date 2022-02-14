@@ -6,7 +6,7 @@ const UserNotification =
         body VARCHAR(255), \
         type NotificationType, \
         PRIMARY KEY (id), \
-        FOREIGN KEY(username) REFERENCES "User"(username)); \
-    ';
+        FOREIGN KEY(username) REFERENCES "User"(username) \
+    );';
 
 module.exports = UserNotification;

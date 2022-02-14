@@ -1,5 +1,7 @@
 const { pool } = require('../../../utils/db');
 
+// TODO: don't delete all instead remove rest and insert rest
+
 const updateProject = async (req, res) => {
     try {
         const { username } = req; // username passed after authenticating token
@@ -19,6 +21,8 @@ const updateProject = async (req, res) => {
                 'UPDATE "Project" SET description = $1 WHERE id = $2',
                 [description, id]
             );
+
+        // links
 
         // change project status if passed in body
         if (typeof status !== 'undefined')
