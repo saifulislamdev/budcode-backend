@@ -19,10 +19,14 @@ const getAllProjects = async (req, res) => {
                         FROM "Project" 
                         WHERE id IN (SELECT project_id 
                                     FROM "ProjectSkill"
-                                    WHERE skill = ANY ($1))
+                                    WHERE skill = ANY ($1)
+                                    GROUP BY project_id
+                                    HAVING COUNT(DISTINCT skill) = array_length($1, 1))
                                 AND id IN (SELECT project_id 
                                             FROM "ProjectTag"
-                                            WHERE tag = ANY ($2))
+                                            WHERE tag = ANY ($2)
+                                            GROUP BY project_id
+                                            HAVING COUNT(DISTINCT tag) = array_length($1, 1))
                                 AND (SELECT bool_or(position(searchTerm in name) > 0)
                                     FROM unnest($3::text[]) searchTerm)`,
                         [req.query.skill, req.query.tag, searchTerms]
@@ -33,7 +37,9 @@ const getAllProjects = async (req, res) => {
                             FROM "Project" 
                             WHERE id IN (SELECT project_id 
                                         FROM "ProjectSkill"
-                                        WHERE skill = ANY ($1))
+                                        WHERE skill = ANY ($1)
+                                        GROUP BY project_id
+                                        HAVING COUNT(DISTINCT skill) = array_length($1, 1))
                                     AND (SELECT bool_or(position(searchTerm in name) > 0)
                                         FROM unnest($2::text[]) searchTerm)`,
                             [req.query.skill, searchTerms]
@@ -44,7 +50,9 @@ const getAllProjects = async (req, res) => {
                         FROM "Project" 
                         WHERE id IN (SELECT project_id 
                                     FROM "ProjectTag"
-                                    WHERE tag = ANY ($1))
+                                    WHERE tag = ANY ($1)
+                                    GROUP BY project_id
+                                    HAVING COUNT(DISTINCT tag) = array_length($1, 1))
                                 AND (SELECT bool_or(position(searchTerm in name) > 0)
                                     FROM unnest($2::text[]) searchTerm)`,
                         [req.query.tag, searchTerms]
@@ -57,19 +65,26 @@ const getAllProjects = async (req, res) => {
                         FROM "Project" 
                         WHERE id IN (SELECT project_id 
                                     FROM "ProjectSkill"
-                                    WHERE skill = ANY ($1))
+                                    WHERE skill = ANY ($1)
+                                    GROUP BY project_id
+                                    HAVING COUNT(DISTINCT skill) = array_length($1, 1))
                                 AND id IN (SELECT project_id 
                                     FROM "ProjectTag"
-                                    WHERE tag = ANY ($2))`,
+                                    WHERE tag = ANY ($2)
+                                    GROUP BY project_id
+                                    HAVING COUNT(DISTINCT tag) = array_length($1, 1))`,
                         [req.query.skill, req.query.tag]
                     );
                 } else if (req.query.skill) {
+
                         projects = await pool.query(
                             `SELECT id,name,description,creator,status,created_at 
                             FROM "Project" 
                             WHERE id IN (SELECT project_id 
                                         FROM "ProjectSkill"
-                                        WHERE skill = ANY ($1))`,
+                                        WHERE skill = ANY ($1)
+                                        GROUP BY project_id
+                                        HAVING COUNT(DISTINCT skill) = array_length($1, 1))`,
                             [req.query.skill]
                         );
                 } else if (req.query.tag) {
@@ -78,7 +93,9 @@ const getAllProjects = async (req, res) => {
                         FROM "Project" 
                         WHERE id IN (SELECT project_id 
                                     FROM "ProjectTag"
-                                    WHERE tag = ANY ($1))`,
+                                    WHERE tag = ANY ($1)
+                                    GROUP BY project_id
+                                    HAVING COUNT(DISTINCT tag) = array_length($1, 1))`,
                         [req.query.tag]
                     );
                 }
