@@ -11,7 +11,7 @@ const getAllProjects = async (req, res) => {
             );
         } else {
             if (req.query.searchQuery) {
-                const searchTerms = req.query.searchQuery.split(' ');
+                const searchTerms = req.query.searchQuery.toLowerCase().split(' ');
 
                 if (req.query.skill && req.query.tag) {
                     projects = await pool.query(
