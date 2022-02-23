@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const getUserFromToken = require('../../../helpers/getUserFromToken');
 const { pool } = require('../../../utils/db');
 
 const getProject = async (req, res) => {
@@ -36,9 +36,11 @@ const getProject = async (req, res) => {
             [id]
         );
 
-        // TODO: links
-
-        // TODO: get rid of skill and interest table?
+        // gather the project's links
+        const { rows: links } = await pool.query(
+            'SELECT link, type FROM "ProjectLink" WHERE project_id = $1',
+            [id]
+        );
 
         // gather the project's skills
         let { rows: skills } = await pool.query({
@@ -64,9 +66,17 @@ const getProject = async (req, res) => {
             [id]
         );
 
-        // TODO: get number of project followers
+        // get number of project followers
+        const { rowCount: numOfFollowers } = await pool.query(
+            'SELECT username FROM "ProjectFollower" WHERE project_id = $1 AND status = true',
+            [id]
+        );
 
-        // TODO: get number of join requests
+        // get number of join requests
+        const { rowCount: numOfJoinRequests } = await pool.query(
+            'SELECT id FROM "ProjectJoinRequest" WHERE project_id = $1 AND status=\'Requested\'',
+            [id]
+        );
 
         // gather the updates sent from the project's members
         const { rows: updates } = await pool.query(
@@ -78,42 +88,120 @@ const getProject = async (req, res) => {
 
         const token = req.headers['authorization']; // token comes in an authorization header
 
-        // check if user can edit the project
-        let canEdit = false;
-        if (typeof token !== 'undefined') {
-            try {
-                let { username } = jwt.verify(token, process.env.JWT_SECRET);
+        // check if user is an authenticated user
+        // this info is used for the rest of the code
+        let isValidUser = false;
+        let username;
+        try {
+            username = getUserFromToken(token);
+            isValidUser = true;
+        } catch (err) {}
 
-                const { rows: isProjectCreator } = await pool.query(
-                    'SELECT exists( \
+        // check if user can edit the project
+        let canUserEdit;
+        if (isValidUser) {
+            const { rows: isProjectCreator } = await pool.query(
+                'SELECT exists( \
                         SELECT creator \
                         FROM "Project" \
                         WHERE id = $1 AND creator = $2)',
-                    [id, username]
-                );
-                if (isProjectCreator[0].exists) canEdit = true;
-            } catch (err) {
-                console.log(err);
-            }
+                [id, username]
+            );
+            if (isProjectCreator[0].exists) canUserEdit = true;
+            else canUserEdit = false;
         }
 
-        // TODO: check if user can follow the project
+        // check if user is following the project already
+        let isUserFollowing;
+        if (isValidUser) {
+            const { rows: isFollowing } = await pool.query(
+                'SELECT exists( \
+                    SELECT username \
+                    FROM "ProjectFollower" \
+                    WHERE username = $1 AND project_id = $2 AND status = true \
+                )',
+                [username, id]
+            );
+            if (isFollowing[0].exists) isUserFollowing = true;
+            else isUserFollowing = false;
+        }
 
-        // TODO: check if user is following the project already
+        // check if user can follow the project
+        let canUserFollow;
+        // not currently following
+        if (isValidUser && !isUserFollowing) canUserFollow = true;
+        // already following
+        else if (isValidUser) canUserFollow = false;
 
-        // TODO: check if user can request to join the project
+        // check if user requested to join the project already
+        let hasUserRequested;
+        if (isValidUser) {
+            const { rows: hasRequested } = await pool.query(
+                'SELECT exists( \
+                    SELECT id \
+                    FROM "ProjectJoinRequest" \
+                    WHERE username = $1 AND project_id = $2 \
+                )',
+                [username, id]
+            );
+            if (hasRequested[0].exists) hasUserRequested = true;
+            else hasUserRequested = false;
+        }
 
-        // TODO: check if user requested to join the project already
+        // check if user is a project member
+        let isUserAMember;
+        if (isValidUser) {
+            const { rows: isMember } = await pool.query(
+                'SELECT exists( \
+                    SELECT created_at \
+                    FROM "ProjectMember" \
+                    WHERE username = $1 AND project_id = $2 \
+                )',
+                [username, id]
+            );
+            if (isMember[0].exists) isUserAMember = true;
+            else isUserAMember = false;
+        }
 
-        // TODO: (nice to have) check if user and project have mutual skills
+        // check if user can request to join the project
+        let canUserRequest;
+        // not currently requested
+        if (isValidUser && !hasUserRequested && !isUserAMember)
+            canUserRequest = true;
+        // already requested or member
+        else if (isValidUser) canUserRequest = false;
+
+        // get mutual skills between project and user
+        let { rows: userMutualSkills } = await pool.query({
+            text: 
+            'SELECT "UserSkill".skill \
+            FROM "UserSkill" \
+            INNER JOIN "ProjectSkill" \
+            ON "UserSkill".skill = "ProjectSkill".skill \
+            WHERE username = $1',
+            values: [username],
+            rowMode: 'array'
+        }
+        )
+        userMutualSkills = userMutualSkills.flat(); // flat nested array
 
         const projectInfo = {
             ...basicInfo['0'],
+            links,
             skills,
             tags,
             members,
+            numOfFollowers,
+            numOfJoinRequests,
             updates,
-            canEdit: canEdit,
+            canUserEdit: canUserEdit,
+            canUserFollow: canUserFollow,
+            canUserRequest: canUserRequest,
+            hasUserRequested: hasUserRequested,
+            isUserAMember: isUserAMember,
+            isUserFollowing: isUserFollowing,
+            isValidUser: isValidUser,
+            userMutualSkills: userMutualSkills
         };
 
         return res.status(200).json(projectInfo);
