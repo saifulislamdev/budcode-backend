@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const getUserFromToken = require('../../../helpers/getUserFromToken');
 const { pool } = require('../../../utils/db');
 
 const getUserInfo = async (req, res) => {
@@ -10,13 +10,8 @@ const getUserInfo = async (req, res) => {
         let usernameFromToken;
         if (typeof token !== 'undefined') {
             try {
-                usernameFromToken = jwt.verify(
-                    token,
-                    process.env.JWT_SECRET
-                ).username;
-            } catch (err) {
-                console.log(err);
-            }
+                usernameFromToken = getUserFromToken(token);
+            } catch (err) {}
         }
 
         // get user's basic info

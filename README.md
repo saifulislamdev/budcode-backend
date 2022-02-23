@@ -16,6 +16,9 @@ BudCode is an online platform that allows software developers, at any level (nov
 git clone https://github.com/saifulislamdev/budcode-backend
 ```
 
+### Setup required technologies
+Install [Node.js](https://nodejs.org/) and setup [PostgreSQL](https://www.postgresql.org/about/) database
+
 ### Install dependencies
 
 Run the following to install the dependencies
@@ -41,6 +44,10 @@ PORT=YOUR_DATABASE_PORT_HERE # not needed if you don't find necessary
 
 JWT_SECRET=YOUR_SECRET_HERE
 ```
+
+### Run server
+
+Run `npm run dev` or `npm run start` (refer to [Available Scripts](##Available-Scripts) section for instructions)
 
 ## Repo Structure
 
