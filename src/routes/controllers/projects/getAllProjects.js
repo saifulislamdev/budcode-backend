@@ -5,13 +5,13 @@ const getAllProjects = async (req, res) => {
         let projects;
 
         // if no filters or keywords are provided
-        if (!req.query.skill && !req.query.tag && !req.query.searchQuery) {
+        if (!req.query.skill && !req.query.tag && !req.query.search) {
             projects = await pool.query(
                 'SELECT id,name,description,creator,status,created_at FROM "Project"'
             );
         } else {
-            if (req.query.searchQuery) {
-                const searchTerms = req.query.searchQuery.toLowerCase().split(' ');
+            if (req.query.search) {
+                const searchTerms = req.query.search.toLowerCase().split(' ');
 
                 if (req.query.skill && req.query.tag) {
                     projects = await pool.query(

@@ -4,28 +4,28 @@ All endpoints that are covered in our REST API are listed here with supporting i
 
 Note: All routes are prefixed by `/api`.
 
-| Prefix            | Endpoint                                                       | Frontend Component/Page        | Status |
-| ----------------- | -------------------------------------------------------------- | ------------------------------ | ------ |
-| `/auth/`          | POST `/auth/signin`                                            | Sign in                        | ✅     |
-|                   | POST `/auth/signup`                                            | Sign up                        | ✅     |
-| `/users/`         | GET `/users/:id`                                               | Profile page                   | ✅     |
-|                   | POST `/users/:id`                                              | Sign up                        |        |
-|                   | PUT `/users/:id`                                               | Profile page                   |        |
-| `/projects/`      | GET `/projects`                                                | Project search and suggestions | ✅     |
-|                   | GET `/projects/:id`                                            | Project page                   | ✅     |
-|                   | GET `/projects/filters`                                        | Project search and suggestions | ✅     |
-|                   | GET `/projects?skill[]=value1&tag[]=value2&searchQuery=value3` | Project search and suggestions | ✅     |
-|                   | GET `/projects/suggestions`                                    | Project search and suggestions | ✅     |
-|                   | GET `/projects/:id/requests`                                   | Member approval                | ✅     |
-| `/projects/`      | POST `/projects`                                               | Project creation               | ✅     |
-|                   | POST `/projects/:id/requests`                                  | Member approval                | ✅     |
-|                   | POST `/projects/:id/follow`                                    | Project page                   | ✅     |
-|                   | POST `/projects/:id/updates`                                   | Feed page                      |        |
-|                   | PUT `/projects/:id`                                            | Project page                   | ✅     |
-|                   | DELETE `/projects/requests/:id`                                | Member approval                | ✅     |
-| `/notifications/` | GET `/notifications/user/:id`                                  | Notification system            |        |
-| `/updates/`       | GET `/updates/user/:id`                                        | Feed page                      |        |
-| `/ratings/`       | POST `/ratings/`                                               | Ratings and reviews            |        |
+| Prefix            | Endpoint                                                  | Frontend Component/Page        | Status |
+| ----------------- | --------------------------------------------------------- | ------------------------------ | ------ |
+| `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
+|                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
+| `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
+|                   | POST `/users/:id`                                         | Sign up                        |        |
+|                   | PUT `/users/:id`                                          | Profile page                   |        |
+| `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
+|                   | GET `/projects/:id`                                       | Project page                   | ✅     |
+|                   | GET `/projects/filters`                                   | Project search and suggestions | ✅     |
+|                   | GET `/projects?skill[]=value1&tag[]=value2&search=value3` | Project search and suggestions | ✅     |
+|                   | GET `/projects/suggestions`                               | Project search and suggestions | ✅     |
+|                   | GET `/projects/:id/requests`                              | Member approval                | ✅     |
+| `/projects/`      | POST `/projects`                                          | Project creation               | ✅     |
+|                   | POST `/projects/:id/requests`                             | Member approval                | ✅     |
+|                   | POST `/projects/:id/follow`                               | Project page                   | ✅     |
+|                   | POST `/projects/:id/updates`                              | Feed page                      |        |
+|                   | PUT `/projects/:id`                                       | Project page                   | ✅     |
+|                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
+| `/notifications/` | GET `/notifications/user/:id`                             | Notification system            |        |
+| `/updates/`       | GET `/updates/user/:id`                                   | Feed page                      |        |
+| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            |        |
 
 Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
 
@@ -158,13 +158,13 @@ Get info of project with ID of project
 
 Get all filters that users can use to filter search
 
-### Result 
+### Result
 
 If successful, results in `200` status code and an an object containing the filters associated with all existing projects. Otherwise, results in a `400` or `500` error status code with a message about the error.
 
 The returned object contains two properties, `skills` and `tags`. Each property's value is an array of objects that have a respective `skill` or `tag` property containing the name of the filter, and a `count` property containing the number of existing projects associated with the filter.
 
-## GET `/projects?skill[]=value1&tag[]=value2&searchQuery=value3`
+## GET `/projects?skill[]=value1&tag[]=value2&search=value3`
 
 ### Description
 
@@ -172,18 +172,19 @@ Get projects by searching with filters and keywords
 
 ### Usage
 
-Multiple filters can be specified with repetition of query parameters. For example: 
+Multiple filters can be specified with repetition of query parameters. For example:
 
 ```
-/projects?skill[]=c%2B%2B&skill[]=python&tag[]=food&searchQuery=restaurant+reviews
+/projects?skill[]=c%2B%2B&skill[]=python&tag[]=food&search=restaurant+reviews
 ```
+
 ### Result
 
 If successful, results in `200` status code and an array containing objects with the info of all projects matching the filtering criteria in the form of key-value pairs. Otherwise, results in a `500` error status code with a message about the error.
 
 Returned projects are returned in the same format as those returned by the [GET /projects endpoint](#get-projects).
 
-Returned projects are guaranteed to be associated with all specified skills and tags. If a `searchQuery` value is provided, returned projects are also guaranteed to contain at least one of the search terms in the project name.
+Returned projects are guaranteed to be associated with all specified skills and tags. If a `search` value is provided, returned projects are also guaranteed to contain at least one of the search terms in the project name.
 
 ## GET `/projects/suggestions`
 
