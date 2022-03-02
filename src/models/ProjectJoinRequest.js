@@ -2,7 +2,7 @@ const ProjectJoinRequest =
     'CREATE TABLE IF NOT EXISTS "ProjectJoinRequest"( \
         id SERIAL, \
         project_id INT, \
-        username VARCHAR(255) NOT NULL, \
+        username CITEXT NOT NULL, \
         message VARCHAR(255), \
         status JoinStatusType DEFAULT \'Requested\' NOT NULL, \
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL, \
