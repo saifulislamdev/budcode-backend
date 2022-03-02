@@ -178,8 +178,9 @@ const getProject = async (req, res) => {
             FROM "UserSkill" \
             INNER JOIN "ProjectSkill" \
             ON "UserSkill".skill = "ProjectSkill".skill \
-            WHERE username = $1',
-            values: [username],
+            WHERE username = $1 \
+            AND project_id = $2',
+            values: [username, id],
             rowMode: 'array'
         }
         )
