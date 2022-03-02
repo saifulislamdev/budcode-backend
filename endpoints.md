@@ -200,7 +200,7 @@ Get project suggestions for a user
 
 If successful, results in `200` status code and an array containing objects with the info of projects matching the user's skills and interests. Otherwise, results in a `401` or `500` error status code with a message about the error.
 
-Returned projects are returned in the same format as those returned by the [GET /projects endpoint](#get-projects).
+Returned projects are returned in the same format as those returned by the [GET /projects endpoint](#get-projects), but with each project having the additional properties of `matchingSkills`, an array containing the skills associated with the project that match with the user's skills, and `tagAffinity`, an integer between 0 and 100 representing the percentage of project tags that match with the user's interests.
 
 Returned projects are guaranteed to be associated with at least one of the user's skills or interests.
 
