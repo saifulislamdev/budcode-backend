@@ -3,7 +3,6 @@ const LowerInsert =
     $$
     DECLARE
         col TEXT := TG_ARGV[0];
-        tableName TEXT := TG_TABLE_NAME;
         target TEXT;
     BEGIN
         EXECUTE format('SELECT ($1).%I', col)
