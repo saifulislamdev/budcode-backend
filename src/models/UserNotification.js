@@ -1,7 +1,7 @@
 const UserNotification =
     'CREATE TABLE IF NOT EXISTS "UserNotification"( \
         id SERIAL, \
-        username VARCHAR(255), \
+        username CITEXT, \
         subject VARCHAR(255), \
         body VARCHAR(255), \
         type NotificationType, \

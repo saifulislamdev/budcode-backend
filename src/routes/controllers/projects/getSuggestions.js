@@ -40,6 +40,19 @@ const getSuggestions = async (req, res) => {
                     rowMode: 'array',
                 });
                 row.skills = skills.rows.flat();
+
+                const matchingSkills = await pool.query({
+                    text: `SELECT ps.skill 
+                            FROM "ProjectSkill" as ps 
+                            JOIN "UserSkill" as us 
+                            ON ps.skill = us.skill 
+                            WHERE project_id = $1 
+                            AND us.username = $2`,
+                    values: [row.id, username],
+                    rowMode: 'array'
+                });
+                row.matchingSkills = matchingSkills.rows.flat();
+
                 return row;
             })
         );
@@ -53,6 +66,18 @@ const getSuggestions = async (req, res) => {
                     rowMode: 'array',
                 });
                 row.tags = tags.rows.flat();
+
+                const matchingTagCount = await pool.query(
+                    `SELECT COUNT(*) 
+                            FROM "ProjectTag" as pt 
+                            JOIN "UserInterest" as ui 
+                            ON pt.tag = ui.interest 
+                            WHERE project_id = $1 
+                            AND ui.username = $2`,
+                    [row.id, username]
+                );
+                row.tagAffinity = Math.round(matchingTagCount.rows[0].count / row.tags.length * 100);
+
                 return row;
             })
         );

@@ -1,7 +1,7 @@
 const UserReview =
     'CREATE TABLE IF NOT EXISTS "UserReview"(\
-        reviewed_username VARCHAR(255), \
-        reviewer_username VARCHAR(255), \
+        reviewed_username CITEXT, \
+        reviewer_username CITEXT, \
         subject VARCHAR(255), \
         body VARCHAR(255), \
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL, \

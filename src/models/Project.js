@@ -1,9 +1,9 @@
 const Project =
     'CREATE TABLE IF NOT EXISTS "Project" (\
         id SERIAL,\
-        name VARCHAR(255) NOT NULL, \
+        name CITEXT NOT NULL, \
         description TEXT, \
-        creator VARCHAR(255), \
+        creator CITEXT, \
         status ProjectStatusType DEFAULT \'In Progress\',\
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL, \
         PRIMARY KEY (id), \
