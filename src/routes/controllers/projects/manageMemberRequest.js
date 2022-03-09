@@ -5,8 +5,6 @@ const manageMemberRequest = async (req, res) => {
         const { id } = req.params; // id of join request
         const { decision } = req.body; // decision made by project creator (if true, accepted; if false, denied)
 
-        // TODO: verify project creator
-
         // verify decision is passed in
         if (typeof decision !== 'boolean')
             return res
