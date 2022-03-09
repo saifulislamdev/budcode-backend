@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-const PROXY = process.env.PROXY || 'http://localhost:5000';
+const PROXY = process.env.PROXY || 'http://localhost:5000/api/';
 
 const options = [
     {
         method: 'POST',
-        url: `${PROXY}/api/auth/signup`,
+        url: `${PROXY}/auth/signup`,
         headers: { 'Content-Type': 'application/json' },
         data: {
             username: 'saifulislam',
@@ -18,7 +18,7 @@ const options = [
     },
     {
         method: 'POST',
-        url: `${PROXY}/api/auth/signup`,
+        url: `${PROXY}/auth/signup`,
         headers: { 'Content-Type': 'application/json' },
         data: {
             username: 'johndoe',
@@ -31,7 +31,7 @@ const options = [
     },
     {
         method: 'POST',
-        url: `${PROXY}/api/auth/signup`,
+        url: `${PROXY}/auth/signup`,
         headers: { 'Content-Type': 'application/json' },
         data: {
             username: 'janedoe',
@@ -44,7 +44,7 @@ const options = [
     },
     {
         method: 'POST',
-        url: `${PROXY}/api/auth/signup`,
+        url: `${PROXY}/auth/signup`,
         headers: { 'Content-Type': 'application/json' },
         data: {
             username: 'bob',
