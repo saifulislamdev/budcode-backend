@@ -307,7 +307,7 @@ Edit project info, change status of project (e.g. to complete), and remove proje
 
 ### Body Parameters
 
-If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be provided.
+If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced.
 
 `name`: project name  
 `description`: project description  

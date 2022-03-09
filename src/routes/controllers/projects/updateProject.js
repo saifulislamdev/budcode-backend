@@ -1,7 +1,5 @@
 const { pool } = require('../../../utils/db');
 
-// TODO: don't delete all instead remove rest and insert rest
-
 const updateProject = async (req, res) => {
     try {
         const { username } = req; // username passed after authenticating token
@@ -31,6 +29,9 @@ const updateProject = async (req, res) => {
                 id,
             ]);
 
+        // TODO: don't delete all skills instead remove skills not passed in and 
+        // insert rest that are not already included
+
         // change project skills if passed in body
         if (typeof skills !== 'undefined') {
             // delete all skills currently listed for the project
@@ -50,6 +51,10 @@ const updateProject = async (req, res) => {
             }
         }
 
+
+        // TODO: don't delete all tags instead remove tags not passed in and 
+        // insert rest that are not already included
+
         // change project tags if passed in body
         if (typeof tags !== 'undefined') {
             // delete all tags currently listed for the project
@@ -67,6 +72,10 @@ const updateProject = async (req, res) => {
                 );
             }
         }
+
+
+        // TODO: don't delete all members instead remove members not passed in and 
+        // insert rest that are not already included
 
         // change project members if passed in body
         if (typeof members !== 'undefined') {
