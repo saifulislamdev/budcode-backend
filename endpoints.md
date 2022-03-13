@@ -262,6 +262,19 @@ If any of these values are not passed in, the value will remain the same. If any
 
 `name`: project name  
 `description`: project description  
+`links`: links in the form of an array of objects as shown below
+```json
+    [
+        {
+            "type": "GitHub", 
+            "link": "https://github.com/saifulislamdev/budcode-backend"
+		},
+        {
+            "type": "Frontend deployment",
+            "link": "https://budcode.netlify.app/"
+        }
+	]
+```
 `status`: project status ("In Progress" or "Complete")  
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
 `tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
