@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const getUserFromToken = (bearerToken) => {
     // if no bearer token passed in
-    if (typeof bearerToken === 'undefined')
+    if (typeof bearerToken !== 'string')
         throw new Error('No token, authorization denied');
 
     // get rid of "Bearer " prefix
@@ -14,7 +14,7 @@ const getUserFromToken = (bearerToken) => {
     const token = bearerToken[1];
 
     // verify proper token
-    if (typeof token === 'undefined' || bearerText !== 'Bearer')
+    if (typeof token !== 'string' || bearerText !== 'Bearer')
         throw new Error('Specify a Bearer Token');
 
     // parse username from token

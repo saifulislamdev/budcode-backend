@@ -8,7 +8,7 @@ const getUserInfo = async (req, res) => {
 
         // get username from token
         let usernameFromToken;
-        if (typeof token !== 'undefined') {
+        if (typeof token === 'string') {
             try {
                 usernameFromToken = getUserFromToken(token);
             } catch (err) {}
@@ -95,7 +95,7 @@ const getUserInfo = async (req, res) => {
         let canReview = false;
         let mutualProjects;
         if (
-            typeof usernameFromToken !== 'undefined' &&
+            typeof usernameFromToken === 'string' &&
             usernameFromRoute !== usernameFromToken
         ) {
             mutualProjects = [];
