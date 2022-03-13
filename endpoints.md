@@ -66,12 +66,27 @@ Sign up
 
 ### Body Parameters
 
-`username`  
-`password`  
-`email`  
-`firstName`  
+`username` \[required]  
+`password` \[required]  
+`email`  \[required]   
+`firstName` \[required]   
 `lastName`  
 `gender`
+`links`: links in the form of an array of objects as shown below
+```json
+    [
+        {
+            "type": "GitHub", 
+            "link": "https://github.com/johndoe"
+		},
+        {
+            "type": "LinkedIn",
+            "link": "https://www.linkedin.com/in/johndoe/"
+        }
+	]
+```
+`interests`: users' interests in the form of an array (e.g. ["full stack development", "frontend", "backend", "crypto"])  
+`skills`: users' skills in the form of an array (e.g. ["HTML", "CSS"])
 
 ### Result
 

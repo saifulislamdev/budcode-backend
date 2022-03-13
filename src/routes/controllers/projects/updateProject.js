@@ -24,7 +24,7 @@ const updateProject = async (req, res) => {
         // TODO: don't delete all links instead remove links not passed in and
         // insert rest that are not already included
 
-        // TODO: change links if passed in body
+        // change links if passed in body
         if (Array.isArray(links)) {
             // delete all links currently listed for the project
             await pool.query(
