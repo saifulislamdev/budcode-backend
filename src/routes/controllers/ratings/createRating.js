@@ -18,16 +18,35 @@ const createRating = async (req, res) => {
         const canReview = await checkReviewability(username, reviewed_username);
 
         if (!canReview) {
-            return res.status(403).json({msg: `User ${username} cannot leave a review for ${reviewed_username}`})
+            return res.status(403).json({msg: `User ${username} cannot leave a review for ${reviewed_username}`});
         }
 
-        await pool.query(
-            `INSERT INTO "UserReview" 
-                (reviewed_username, reviewer_username, subject, body)
-                VALUES ($1, $2, $3, $4)`,
-            [reviewed_username, username, subject, body]
+        let promises = [];
+        promises.push(
+            await pool.query(
+                `INSERT INTO "UserReview" 
+                    (reviewed_username, reviewer_username, subject, body)
+                    VALUES ($1, $2, $3, $4)`,
+                [reviewed_username, username, subject, body]
+            )
         );
 
+        // notify user
+        promises.push(
+            await pool.query(
+                `INSERT INTO "UserNotification"
+                    (username, subject, body, type)
+                    VALUES ($1, $2, $3, $4)`,
+                [
+                    reviewed_username,
+                    'Review received',
+                    `${username} left you a review.`,
+                    'Review',
+                ]
+            )
+        );
+
+        Promise.all(promises);
         return res.status(201).json({ msg: 'Rating created' });
     } catch (err) {
         console.error(err);
