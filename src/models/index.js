@@ -1,3 +1,5 @@
+const { CITEXT } = require('./Extensions');
+const { HSTORE } = require('./Extensions');
 const LowerInsert = require('./LowerInsert');
 const JoinStatusType = require('./JoinStatusType');
 const NotificationType = require('./NotificationType');
@@ -25,6 +27,8 @@ const UserSkillLower = require('./UserSkillLower');
 // this is the order that tables are created
 // referenced tables must exist first before creating the referencing table
 module.exports = {
+    CITEXT,
+    HSTORE,
     LowerInsert,
     ProjectStatusType,
     JoinStatusType,
