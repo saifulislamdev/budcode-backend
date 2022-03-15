@@ -1,7 +1,6 @@
 const getUserFromToken = require('../../../helpers/getUserFromToken');
 const checkReviewability = require('../../../helpers/checkReviewability');
 const { pool } = require('../../../utils/db');
-const { check } = require('prettier');
 
 const getUserInfo = async (req, res) => {
     try {
