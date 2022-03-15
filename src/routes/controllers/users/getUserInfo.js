@@ -1,5 +1,7 @@
 const getUserFromToken = require('../../../helpers/getUserFromToken');
+const checkReviewability = require('../../../helpers/checkReviewability');
 const { pool } = require('../../../utils/db');
+const { check } = require('prettier');
 
 const getUserInfo = async (req, res) => {
     try {
@@ -114,7 +116,7 @@ const getUserInfo = async (req, res) => {
                     [usernameFromToken, usernameFromRoute]
                 );
             if (hasMutualProjects) {
-                canReview = true;
+                canReview = await checkReviewability(usernameFromToken, usernameFromRoute);
                 mutualProjects = projects;
             }
         }
