@@ -16,6 +16,8 @@ const checkReviewability = async (reviewer, reviewed) => {
     );
 
     if (mutuallyCompleted) {
+
+        // check if user has already reviewed the target user
         const {rowCount : reviewExists} = await pool.query(
             `SELECT 1 
                 FROM "UserReview" 
