@@ -40,7 +40,7 @@ const createRating = async (req, res) => {
                 [
                     reviewed_username,
                     'Review received',
-                    `${username} left you a review.`,
+                    'A review was left on your profile page.',
                     'Review',
                 ]
             )
