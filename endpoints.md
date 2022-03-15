@@ -25,7 +25,7 @@ Note: All routes are prefixed by `/api`.
 |                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
 | `/notifications/` | GET `/notifications/user/:id`                             | Notification system            |        |
 | `/updates/`       | GET `/updates/user/:id`                                   | Feed page                      |        |
-| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            |        |
+| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            | ✅       |
 
 Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
 
@@ -71,19 +71,19 @@ Sign up
 `email`  \[required]   
 `firstName` \[required]   
 `lastName`  
-`gender`
+`gender`  
 `links`: links in the form of an array of objects as shown below
 ```json
     [
         {
             "type": "GitHub", 
             "link": "https://github.com/johndoe"
-		},
+        },
         {
             "type": "LinkedIn",
             "link": "https://www.linkedin.com/in/johndoe/"
         }
-	]
+    ]
 ```
 `interests`: users' interests in the form of an array (e.g. ["full stack development", "frontend", "backend", "crypto"])  
 `skills`: users' skills in the form of an array (e.g. ["HTML", "CSS"])
@@ -332,12 +332,12 @@ If any of these values are not passed in, the value will remain the same. If any
         {
             "type": "GitHub", 
             "link": "https://github.com/saifulislamdev/budcode-backend"
-		},
+        },
         {
             "type": "Frontend deployment",
             "link": "https://budcode.netlify.app/"
         }
-	]
+    ]
 ```
 `status`: project status ("In Progress" or "Complete")  
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
@@ -393,4 +393,15 @@ Get project updates for a user
 
 ### Description
 
-New rating for a user with an ID of ratedUserId (rated user is notified)
+New rating for a user (rated user is notified)
+
+### Body Parameters
+
+`authorization`: token (if exists)  
+`reviewed_username`: user being reviewed  
+`subject`: subject of review  
+`body`: body of review  
+
+### Result
+
+If successful, results in `201` status code with success message. Otherwise, results in a `401`, `403`, or `500` error status code with a message about the error.
