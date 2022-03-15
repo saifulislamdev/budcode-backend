@@ -25,7 +25,7 @@ Note: All routes are prefixed by `/api`.
 |                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
 | `/notifications/` | GET `/notifications/user/:id`                             | Notification system            |        |
 | `/updates/`       | GET `/updates/user/:id`                                   | Feed page                      |        |
-| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            | ✅       |
+| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            | ✅     |
 
 Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
 
@@ -68,23 +68,25 @@ Sign up
 
 `username` \[required]  
 `password` \[required]  
-`email`  \[required]   
-`firstName` \[required]   
+`email` \[required]  
+`firstName` \[required]  
 `lastName`  
 `gender`  
 `links`: links in the form of an array of objects as shown below
+
 ```json
-    [
-        {
-            "type": "GitHub", 
-            "link": "https://github.com/johndoe"
-        },
-        {
-            "type": "LinkedIn",
-            "link": "https://www.linkedin.com/in/johndoe/"
-        }
-    ]
+[
+    {
+        "type": "GitHub",
+        "link": "https://github.com/johndoe"
+    },
+    {
+        "type": "LinkedIn",
+        "link": "https://www.linkedin.com/in/johndoe/"
+    }
+]
 ```
+
 `interests`: users' interests in the form of an array (e.g. ["full stack development", "frontend", "backend", "crypto"])  
 `skills`: users' skills in the form of an array (e.g. ["HTML", "CSS"])
 
@@ -327,18 +329,20 @@ If any of these values are not passed in, the value will remain the same. If any
 `name`: project name  
 `description`: project description  
 `links`: links in the form of an array of objects as shown below
+
 ```json
-    [
-        {
-            "type": "GitHub", 
-            "link": "https://github.com/saifulislamdev/budcode-backend"
-        },
-        {
-            "type": "Frontend deployment",
-            "link": "https://budcode.netlify.app/"
-        }
-    ]
+[
+    {
+        "type": "GitHub",
+        "link": "https://github.com/saifulislamdev/budcode-backend"
+    },
+    {
+        "type": "Frontend deployment",
+        "link": "https://budcode.netlify.app/"
+    }
+]
 ```
+
 `status`: project status ("In Progress" or "Complete")  
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
 `tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
@@ -400,7 +404,7 @@ New rating for a user (rated user is notified)
 `authorization`: token (if exists)  
 `reviewed_username`: user being reviewed  
 `subject`: subject of review  
-`body`: body of review  
+`body`: body of review
 
 ### Result
 
