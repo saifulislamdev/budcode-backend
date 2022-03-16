@@ -1,6 +1,6 @@
 const format = require('pg-format');
 const { pool } = require('../../../utils/db');
-const verifyNewLinks = require('../../../helpers/editLinks');
+const verifyNewLinks = require('../../../helpers/verifyLinks');
 
 // TODO: editing username and password could have been done below
 
@@ -68,7 +68,6 @@ const editUser = async (req, res) => {
             await pool.query('DELETE FROM "UserLink" WHERE username = $1', [
                 id,
             ]);
-            console.log(links);
             if (links.length) {
                 // get placeholders and parameters for insert statement
                 const { parameterPlaceholders, parameters } = verifyNewLinks(
