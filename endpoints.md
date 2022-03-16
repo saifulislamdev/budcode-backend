@@ -9,8 +9,7 @@ Note: All routes are prefixed by `/api`.
 | `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
 |                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
 | `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
-|                   | POST `/users/:id`                                         | Sign up                        |        |
-|                   | PUT `/users/:id`                                          | Profile page                   |        |
+|                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
 | `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
 |                   | GET `/projects/:id`                                       | Project page                   | ✅     |
 |                   | GET `/projects/filters`                                   | Project search and suggestions | ✅     |
@@ -114,17 +113,49 @@ If successful, results in `200` status code and profile info in the form of key-
 
 Otherwise, results in a `500` error status code with a message about the error.
 
-## POST `/users/:id`
-
-### Description
-
-Create user profile
-
 ## PUT `/users/:id`
 
 ### Description
 
 Edit user profile info
+
+### Header
+
+`authorization`: token (if exists)
+
+### Route Parameters
+
+`id`: username of the profile being edited
+
+### Body Parameters 
+
+If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced ENTIRELY (the old value will be reset and set to new value that you provide).
+
+`firstName`
+`lastName`
+`email`
+`bio`: Short bio of the user
+`occupation`: User's occupation
+`gender`
+`links`: links in the form of an array of objects as shown below
+```json
+[
+    {
+        "type": "GitHub", 
+        "link": "https://github.com/johndoe"
+    },
+    {
+        "type": "LinkedIn",
+        "link": "https://www.linkedin.com/in/johndoe/"
+    }
+]
+``` 
+`interests`: users' interests in the form of an array (e.g. ["full stack development", "frontend", "backend", "crypto"])  
+`skills`: users' skills in the form of an array (e.g. ["HTML", "CSS"])
+
+## Results
+
+If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
 ## GET `/projects`
 
@@ -324,7 +355,7 @@ Edit project info, change status of project (e.g. to complete), and remove proje
 
 ### Body Parameters
 
-If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced ENTIRELY (the old value will be reset and set to new value).
+If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced ENTIRELY (the old value will be reset and set to new value that you provide).
 
 `name`: project name  
 `description`: project description  

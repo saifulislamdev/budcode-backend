@@ -124,6 +124,7 @@ const signUp = async (req, res) => {
 
         return res.status(201).json({ msg: 'Created successfully' });
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ msg: 'Internal server error' });
     }
 };
