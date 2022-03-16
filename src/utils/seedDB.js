@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const PROXY = process.env.PROXY || 'http://localhost:5000/api/';
+const PROXY = process.env.PROXY || 'http://localhost:5000/api';
 
 const options = [
     {

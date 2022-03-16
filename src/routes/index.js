@@ -5,6 +5,7 @@ const router = express.Router();
 const appConfig = require('./appConfig');
 const auth = require('./auth');
 const projects = require('./projects');
+const ratings = require('./ratings')
 const users = require('./users');
 
 // Mount each controller under a specific route. These
@@ -12,6 +13,7 @@ const users = require('./users');
 router.use('/', appConfig);
 router.use('/auth', auth);
 router.use('/projects', projects);
+router.use('/ratings', ratings);
 router.use('/users', users);
 
 module.exports = router;
