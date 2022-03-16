@@ -9,8 +9,7 @@ Note: All routes are prefixed by `/api`.
 | `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
 |                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
 | `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
-|                   | POST `/users/:id`                                         | Sign up                        |        |
-|                   | PUT `/users/:id`                                          | Profile page                   |        |
+|                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
 | `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
 |                   | GET `/projects/:id`                                       | Project page                   | ✅     |
 |                   | GET `/projects/filters`                                   | Project search and suggestions | ✅     |
