@@ -1,3 +1,8 @@
+// This function checks if a user can review another user, given both their usernames.
+// If the users have no mutually completed projects or if the reviewer has already
+// left the target user a review, the function will return false.
+// Otherwise, it will return true.
+
 const { pool } = require('../utils/db');
 
 const checkReviewability = async (reviewer, reviewed) => {
