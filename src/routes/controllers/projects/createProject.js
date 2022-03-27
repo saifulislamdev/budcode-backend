@@ -1,12 +1,11 @@
 const validatingBodyContent = require('../../../helpers/validatingBodyContent');
+const verifyNewLinks = require('../../../helpers/verifyLinks');
 const { pool } = require('../../../utils/db');
-
-// TODO: links?
 
 const createProject = async (req, res) => {
     try {
         const { username } = req;
-        const { name, description, skills, tags } = req.body;
+        const { name, description, skills, tags, links } = req.body;
         const required = {
             name,
             description,
@@ -47,6 +46,20 @@ const createProject = async (req, res) => {
                     [id, tag]
                 ),
             ];
+        }
+
+        if (Array.isArray(links)) {
+            if (links.length) {
+                const { parameterPlaceholders, parameters } = verifyNewLinks(
+                    links,
+                    id,
+                    res
+                );
+
+                promises.push(
+                    pool.query(`INSERT INTO "ProjectLink" (project_id, link, type) VALUES ${parameterPlaceholders}`, parameters)
+                );
+            }
         }
 
         await Promise.all(promises);

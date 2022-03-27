@@ -131,13 +131,13 @@ Edit user profile info
 
 If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced ENTIRELY (the old value will be reset and set to new value that you provide).
 
-`firstName`
-`lastName`
-`email`
-`bio`: Short bio of the user
-`occupation`: User's occupation
-`gender`
-`links`: links in the form of an array of objects as shown below
+`firstName`  
+`lastName`  
+`email`  
+`bio`: Short bio of the user  
+`occupation`: User's occupation  
+`gender`  
+`links`: links in the form of an array of objects as shown below:
 ```json
 [
     {
@@ -285,11 +285,24 @@ Create new project
 `name`: project name  
 `description`: project description  
 `skills`: project skills in the form of an array (e.g. ["HTML", "CSS"])  
-`tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])
+`tags`: project tags in the form of an array (e.g. ["web application", "collaboration"])  
+`links` (optional): links in the form of an array of objects as shown below
+
+```json
+[
+    {
+        "type": "GitHub",
+        "link": "https://github.com/saifulislamdev/budcode-backend"
+    },
+    {
+        "type": "Frontend deployment",
+        "link": "https://budcode.netlify.app/"
+    }
+]
 
 ### Result
 
-If successful, results in `201` status code with success message. Otherwise, results in a `401` or `500` error status code with a message about the error.
+If successful, results in `201` status code with success message. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
 ## POST `/projects/:id/requests`
 

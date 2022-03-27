@@ -33,14 +33,19 @@ Create a `.env` file in the root of the repository with the following environmen
 
 ```bash
 # Port Number for API
-PORT=5000 # value shown is default
+# value shown is default
+PORT=5000
 
 # Database config
 PGHOST=YOUR_DATABASE_HOST_HERE
 PGUSER=YOUR_DATABASE_USERNAME_HERE
 PGDATABASE=YOUR_DATABASE_NAME_HERE
-PGPASS=YOUR_DATABASE_PASSWORD_HERE # not needed if there is no password
-PGPORT=YOUR_DATABASE_PORT_HERE # not needed if you don't find necessary
+
+# not needed if there is no password
+PGPASS=YOUR_DATABASE_PASSWORD_HERE
+
+# not needed if you don't find necessary
+PGPORT=YOUR_DATABASE_PORT_HERE
 
 JWT_SECRET=YOUR_SECRET_HERE
 ```
