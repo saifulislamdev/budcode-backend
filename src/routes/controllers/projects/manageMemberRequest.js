@@ -4,6 +4,7 @@ const manageMemberRequest = async (req, res) => {
     try {
         const { id } = req.params; // id of join request
         const { decision } = req.body; // decision made by project creator (if true, accepted; if false, denied)
+        const { username } = req; // username passed after authenticating token
 
         // verify decision is passed in
         if (typeof decision !== 'boolean')
@@ -38,6 +39,21 @@ const manageMemberRequest = async (req, res) => {
             id: projectId,
             name: projectName,
         } = request[0];
+
+        // verify if user is the project creator for the request's associated project
+        const { rows: isProjectCreator } = await pool.query(
+            'SELECT exists( \
+                        SELECT "Project".creator \
+                        FROM "ProjectJoinRequest" \
+                        JOIN "Project" ON "Project".id = "ProjectJoinRequest".project_id \
+                        WHERE "ProjectJoinRequest".id = $1 AND "Project".creator = $2 \
+                    )',
+            [id, username]
+        );
+        if (!isProjectCreator[0].exists)
+            return res.status(401).json({
+                msg: 'You must be the project creator in order to perform this feature',
+            });
 
         // change join request status
         const newStatus = decision ? 'Accepted' : 'Denied';
