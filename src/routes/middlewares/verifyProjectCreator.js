@@ -1,6 +1,6 @@
 const { pool } = require('../../utils/db');
 
-// Check if user is project creator for valid project editing/viewing privileges
+// Check if user is project creator for valid project editing/viewing privileges using the PROJECT ID
 const verifyProjectCreator = async (req, res, next) => {
     try {
         const { username } = req; // username passed after authenticating token
