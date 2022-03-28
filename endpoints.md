@@ -22,7 +22,7 @@ Note: All routes are prefixed by `/api`.
 |                   | POST `/projects/:id/updates`                              | Feed page                      |        |
 |                   | PUT `/projects/:id`                                       | Project page                   | ✅     |
 |                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
-| `/notifications/` | GET `/notifications/user/:id`                             | Notification system            |        |
+| `/notifications/` | GET `/notifications/user/:id`                             | Notification system            | ✅     |
 | `/updates/`       | GET `/updates/user/:id`                                   | Feed page                      |        |
 | `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            | ✅     |
 
@@ -425,11 +425,26 @@ Approve/reject request to join a project (requesting user is notified)
 
 If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
-## GET `/notifications/:id`
+## GET `/notifications/user/:id`
 
 ### Description
 
 Get all notifications for a user
+
+### Header
+
+`authorization`: token (if exists)  
+`Content-Type`: `application/json`
+
+### Route Parameters
+
+`id`: username of user whose notifications you are trying to obtain
+
+### Result
+
+If successful, results in `200` status code and an array containing objects where each object contains information about a specific notification. Otherwise, results in a `401` or `500` error status code with a message about the error.
+
+The user associated with the token should match the user specified by `id`. Otherwise, it will result in a `401` error status code.
 
 ## GET `/updates/user/:id`
 
