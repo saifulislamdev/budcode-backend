@@ -4,27 +4,27 @@ All endpoints that are covered in our REST API are listed here with supporting i
 
 Note: All routes are prefixed by `/api`.
 
-| Prefix            | Endpoint                                                  | Frontend Component/Page        | Status |
-| ----------------- | --------------------------------------------------------- | ------------------------------ | ------ |
-| `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
-|                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
-| `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
-|                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
-| `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
-|                   | GET `/projects/:id`                                       | Project page                   | ✅     |
-|                   | GET `/projects/filters`                                   | Project search and suggestions | ✅     |
-|                   | GET `/projects?skill[]=value1&tag[]=value2&search=value3` | Project search and suggestions | ✅     |
-|                   | GET `/projects/suggestions`                               | Project search and suggestions | ✅     |
-|                   | GET `/projects/:id/requests`                              | Member approval                | ✅     |
-| `/projects/`      | POST `/projects`                                          | Project creation               | ✅     |
-|                   | POST `/projects/:id/requests`                             | Member approval                | ✅     |
-|                   | POST `/projects/:id/follow`                               | Project page                   | ✅     |
-|                   | POST `/projects/:id/updates`                              | Feed page                      |        |
-|                   | PUT `/projects/:id`                                       | Project page                   | ✅     |
-|                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
-| `/notifications/` | GET `/notifications/user/:id`                             | Notification system            | ✅     |
-| `/updates/`       | GET `/updates/user/:id`                                   | Feed page                      |        |
-| `/ratings/`       | POST `/ratings/`                                          | Ratings and reviews            | ✅     |
+| Link                                                | Prefix            | Endpoint                                                  | Frontend Component/Page        | Status |
+| --------------------------------------------------- | ----------------- | --------------------------------------------------------- | ------------------------------ | ------ |
+| [🔗](#post-authsignin)                              | `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
+| [🔗](#post-authsignup)                              |                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
+| [🔗](#get-usersid)                                  | `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
+| [🔗](#put-usersid)                                  |                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
+| [🔗](#get-projects)                                 | `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
+| [🔗](#get-projectsid)                               |                   | GET `/projects/:id`                                       | Project page                   | ✅     |
+| [🔗](#get-projectsfilters)                          |                   | GET `/projects/filters`                                   | Project search and suggestions | ✅     |
+| [🔗](#get-projectsskillvalue1tagvalue2searchvalue3) |                   | GET `/projects?skill[]=value1&tag[]=value2&search=value3` | Project search and suggestions | ✅     |
+| [🔗](#get-projectssuggestions)                      |                   | GET `/projects/suggestions`                               | Project search and suggestions | ✅     |
+| [🔗](#get-projectsidrequests)                       |                   | GET `/projects/:id/requests`                              | Member approval                | ✅     |
+| [🔗](#post-projects)                                | `/projects/`      | POST `/projects`                                          | Project creation               | ✅     |
+| [🔗](#post-projectsidrequests)                      |                   | POST `/projects/:id/requests`                             | Member approval                | ✅     |
+| [🔗](#post-projectsidfollow)                        |                   | POST `/projects/:id/follow`                               | Project page                   | ✅     |
+| [🔗](#post-projectsidupdates)                       |                   | POST `/projects/:id/updates`                              | Feed page                      |        |
+| [🔗](#put-projectsid)                               |                   | PUT `/projects/:id`                                       | Project page                   | ✅     |
+| [🔗](#delete-projectsrequestsid)                    |                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
+| [🔗](#get-notificationsuserid)                      | `/notifications/` | GET `/notifications/user/:id`                             | Notification system            | ✅     |
+| [🔗](#get-updates)                                  | `/updates/`       | GET `/updates`                                            | Feed page                      |        |
+| [🔗](#post-ratings)                                 | `/ratings/`       | POST `/ratings`                                           | Ratings and reviews            | ✅     |
 
 Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
 
@@ -127,7 +127,7 @@ Edit user profile info
 
 `id`: username of the profile being edited
 
-### Body Parameters 
+### Body Parameters
 
 If any of these values are not passed in, the value will remain the same. If any value is provided, the old value will be replaced ENTIRELY (the old value will be reset and set to new value that you provide).
 
@@ -138,10 +138,11 @@ If any of these values are not passed in, the value will remain the same. If any
 `occupation`: User's occupation  
 `gender`  
 `links`: links in the form of an array of objects as shown below:
+
 ```json
 [
     {
-        "type": "GitHub", 
+        "type": "GitHub",
         "link": "https://github.com/johndoe"
     },
     {
@@ -149,7 +150,8 @@ If any of these values are not passed in, the value will remain the same. If any
         "link": "https://www.linkedin.com/in/johndoe/"
     }
 ]
-``` 
+```
+
 `interests`: users' interests in the form of an array (e.g. ["full stack development", "frontend", "backend", "crypto"])  
 `skills`: users' skills in the form of an array (e.g. ["HTML", "CSS"])
 
@@ -299,6 +301,7 @@ Create new project
         "link": "https://budcode.netlify.app/"
     }
 ]
+```
 
 ### Result
 
@@ -349,7 +352,24 @@ If successful, results in `201` status code with success message. Otherwise, res
 
 ### Description
 
-Create new project update for a project with the project ID
+Create a new project update for a project with the project ID
+
+### Header
+
+`authorization`: token (if exists)
+
+### Route Parameters
+
+`id`: ID of project
+
+### Body Parameters
+
+`subject`: subject/title of update  
+`body`: body of update
+
+### Result
+
+If successful, results in `201` status code with success message. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
 ## PUT `/projects/:id`
 
@@ -396,12 +416,6 @@ If any of these values are not passed in, the value will remain the same. If any
 
 If successful, results in `204` status code. Otherwise, results in a `400`, `401`, or `500` error status code with a message about the error.
 
-## DELETE `/projects/:id`
-
-### Description
-
-Mark a project as complete or discontinued
-
 ## DELETE `/projects/requests/:id`
 
 ### Description
@@ -446,11 +460,29 @@ If successful, results in `200` status code and an array containing objects wher
 
 The user associated with the token should match the user specified by `id`. Otherwise, it will result in a `401` error status code.
 
-## GET `/updates/user/:id`
+## GET `/updates`
 
 ### Description
 
 Get project updates for a user
+
+### Header
+
+`authorization`: token (if exists)
+
+### Result
+
+If successful, results in `200` status code and an array containing objects with the updates from the projects the user follows in the form of key-value pairs, ordered from newest to oldest. Otherwise, results in a `401` or `500` error status code with a message about the error.
+
+Each object in the array represents a project update and contains the following values:
+
+`id`  
+`project_id`  
+`project_name`  
+`subject`  
+`body`  
+`author`  
+`time_posted`
 
 ## POST `/ratings/`
 
