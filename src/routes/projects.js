@@ -8,6 +8,7 @@ const getSuggestions = require('./controllers/projects/getSuggestions');
 const getProject = require('./controllers/projects/getProject');
 const getAllProjects = require('./controllers/projects/getAllProjects');
 const getFilters = require('./controllers/projects/getFilters');
+const createUpdate = require('./controllers/projects/createUpdate');
 const manageMemberRequest = require('./controllers/projects/manageMemberRequest');
 const updateProject = require('./controllers/projects/updateProject');
 const createProject = require('./controllers/projects/createProject');
@@ -28,6 +29,7 @@ router.get(
 router.post('/', authenticateToken, createProject);
 router.post('/:id/follow', authenticateToken, followProject);
 router.post('/:id/requests', authenticateToken, createMemberRequest);
+router.post('/:id/updates', authenticateToken, verifyProjectCreator, createUpdate);
 router.put('/:id', authenticateToken, verifyProjectCreator, updateProject);
 router.delete('/requests/:id', authenticateToken, manageMemberRequest);
 
