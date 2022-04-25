@@ -1,15 +1,7 @@
-const axios = require('axios');
-
-const signUpRequestsOptions = require('./mock_data/signUp');
-
-const options = [].concat(signUpRequestsOptions);
+const createUsersMockData = require('./mock_data/createUsersMockData');
 
 const seed = async () => {
-    options.map(async (currReqOptions, i) => {
-        try {
-            await axios.request(currReqOptions);
-        } catch (err) {}
-    });
+    await createUsersMockData();
 };
 
 module.exports = seed;
