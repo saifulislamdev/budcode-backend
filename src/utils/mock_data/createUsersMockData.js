@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { pool } = require('../db');
-const usersInfos = require('./userMockData');
+const usersInfos = require('./usersMockData');
 
 // Creates mock user data
 const createUsersMockData = async () => {
