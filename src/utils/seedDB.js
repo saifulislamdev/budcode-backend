@@ -1,7 +1,8 @@
-const createUsersMockData = require('./mock_data/createUsersMockData');
+const createUsers = require('./mock_data/createUsers');
 
+// Seeding DB with mock data
 const seed = async () => {
-    await createUsersMockData();
+    await createUsers();
 };
 
 module.exports = seed;
