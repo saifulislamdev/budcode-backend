@@ -12,7 +12,7 @@ const createUsersMockData = async () => {
         for (const userInfo of usersInfos) {
             const hashedPassword = await bcrypt.hash(userInfo.password, salt);
 
-            // Inner try-catch to make sure if one statement fails, the subsequent ones don't
+            // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
                 await pool.query(
                     '\

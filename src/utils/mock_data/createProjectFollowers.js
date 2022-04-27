@@ -5,7 +5,7 @@ const projectsFollowers = require('./projectsFollowers');
 const createProjectsFollowersMockData = async () => {
     try {
         for (const projectFollower of projectsFollowers) {
-            // Inner try-catch to make sure if one statement fails, the subsequent ones don't
+            // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
                 // Insert new record (if not added already)
                 await pool.query(
