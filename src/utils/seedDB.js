@@ -1,5 +1,5 @@
 const createProjects = require('./mock_data/createProjects');
-const createUsersMockData = require('./mock_data/createUsersMockData');
+const createUsersMockData = require('./mock_data/createUsers');
 
 const seed = async () => {
     await createUsersMockData();
