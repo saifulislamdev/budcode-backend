@@ -1,8 +1,40 @@
 const { pool } = require('../db');
-const projectInfos = require('./projects');
+const initialProjects = require('./projects');
+const generateProjects = require('./pullData');
+const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const createProjects = async () => {
     try {
+
+        // check if mock data was already inserted
+        const { rowCount } = await pool.query(`SELECT id FROM "Project" LIMIT 300`);
+        if (rowCount === 300 || process.env.NO_MOCK_PROJECTS) {
+            return;
+        }
+
+        const topics = [
+            'cooking',
+            'game',
+            'social',
+            'calendar',
+            'machine learning',
+            'optimize',
+            'note taking',
+            'gps',
+            'fitness',
+            'bitcoin',
+            'image',
+            'remote',
+            'music',
+            'stocks',
+            'password'
+        ];
+
+        const projectInfos = await generateProjects(topics);
+        projectInfos.push(...initialProjects);
 
         let promises = [];
 
@@ -62,14 +94,13 @@ const createProjects = async () => {
                     );
                 }
             }
-
         }
 
         await Promise.all(promises);
+        console.log('\nMock project data created');
     } catch (err) {
         console.error(err);
     }
-
 };
 
 module.exports = createProjects;

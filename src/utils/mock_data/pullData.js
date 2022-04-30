@@ -16,11 +16,11 @@ dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 function repoFormat(repo, id, creator) {
     let project = {};
     project.id = id;
-    project.name = repo.name;
+    project.name = repo.name.replace(new RegExp('-', 'g'), ' ');
     project.creator = creator;
     project.description = repo.description;
     project.skills = repo.languages;
-    project.tags = repo.topics;
+    project.tags = repo.topics.map(topic => topic.replace(new RegExp('-', 'g'),' '));
     project.links = [{ type: 'GitHub', link: repo.html_url }]
 
     return project;
@@ -28,10 +28,9 @@ function repoFormat(repo, id, creator) {
 
 
 /**
- * @param {number} page - integer indicating page of results
  * @param {string} query - search query
  */
-const fetchRepos = async (page, query) => {
+const fetchRepos = async (query) => {
 
     const octokit = new Octokit({auth: process.env.GITAUTH});
     let params = new URLSearchParams();
@@ -39,7 +38,7 @@ const fetchRepos = async (page, query) => {
     params.append('sort', 'stars');
     params.append('order', 'desc');
     params.append('per_page', '100');
-    params.append('page', `${page}`);
+    params.append('page', '1');
     let url = `/search/repositories?${params.toString()}`;
     
     const searchResult = await octokit.request(`GET ${url}`, {});
@@ -76,9 +75,17 @@ const generateProjects = async (topics) => {
     const searches = topics.length;
 
     let projects = [];
+
+    // this could be handled more quickly in theory (by fetching the pages asynchronously),
+    // but for some reason, GitHub times out the requests when this is done and returns
+    // incomplete results
+    //
+    // it would still work, however more topics would need to be added since the # of projects
+    // is usually less than 1000 due to the results being incomplete
     for (let i = 0; i < searches; ++i) {
-        const repos = await fetchRepos(1, topics[i]);
+        const repos = await fetchRepos(topics[i]);
         repos.forEach((repo) => {
+            process.stdout.write(`\rAdding project ${id} from page ${i+1}...`);
             let creator = usersInfos[getRandomInt(0, 20)].username;
             projects.push(repoFormat(repo, id, creator));
             ++id;
@@ -87,40 +94,5 @@ const generateProjects = async (topics) => {
 
     return projects;
 };
-
-// main() function for testing purposes
-// call generateProjects() in here
-// currently, the output of generateProjects() is printed to output.txt 
-const main = async () => {
-
-    const { Console } = require('console');
-    const fs = require("fs");
-    const myLogger = new Console({
-      stdout: fs.createWriteStream(path.join(__dirname, 'output.txt'))
-    });
-
-    const topics = [
-        'cooking',
-        'game',
-        'social',
-        'calendar',
-        'machine learning',
-        'optimize',
-        'note taking',
-        'gps',
-        'fitness',
-        'bitcoin',
-        'image',
-        'remote',
-        'music',
-        'stocks',
-        'password'
-    ];
-    
-    let projects = await generateProjects(topics);
-    myLogger.dir(projects, {depth: null, maxArrayLength: null});
-};
-
-main();
 
 module.exports = generateProjects;

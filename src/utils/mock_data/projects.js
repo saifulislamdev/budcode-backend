@@ -1,4 +1,4 @@
-const projectInfos = [
+const initialProjects = [
     {
         id: 1,
         name: 'BudCode',
@@ -72,95 +72,6 @@ const projectInfos = [
             }
         ]
     },
-
-    {
-        id: 6,
-        name: 'Hello Universe',
-        creator: 'abdulimtiaz',
-        description: 
-        `'Hello World' is something every programmer is familiar with as an entry point to programming. At Hello Universe, what we aim to do is provide a website to showcase our first serious programming projects that we completed on our own. By doing so, we hope to provide insight to new programmers as well as inspire new ideas within one another.`,
-        skills: ['Node', 'React', 'HTML', 'CSS', 'PostgreSQL'],
-        tags: ['web development', 'full-stack development']
-    },
-
-    {
-        id: 7,
-        name: 'Calculator',
-        creator: 'joybiswas',
-        description: `A simple calculator program`,
-        skills: ['JavaScript', 'HTML', 'CSS'],
-        tags: ['web development', 'full-stack development', 'math'],
-        links: [
-            {
-                type: 'GitHub',
-                link: 'https://github.com/joybiswas704/Calculator'
-            }
-        ]
-    },
-
-    {
-        id: 8,
-        name: 'Dice Roller',
-        creator: 'mehedishohag',
-        description: `A mobile application that simulates the roll of a die`,
-        skills: ['Java', 'Android'],
-        tags: ['mobile app'],
-        links: [
-            {
-                type: 'GitHub',
-                link: 'https://github.com/Mhshohag2256/Dice-Roller-App'
-            }
-        ]
-    },
-
-    {
-        id: 9,
-        name: 'Bud-Get',
-        creator: 'zealptl',
-        description: 
-        `Full stack web app that aims to track budget and give analytical insights to better manage your expenses.`,
-        skills: ['Node', 'Express', 'MongoDB', 'Mongoose', 'React', 'JavaScript', 'Material UI'],
-        tags: ['web development', 'productivity', 'finance'],
-        links: [
-            {
-                type: 'GitHub',
-                link: 'https://github.com/zealptl/Bud-Get'
-            }
-        ]
-    },
-
-    {
-        id: 10,
-        name: 'Disposal Finder',
-        creator: 'justinsiu',
-        description: 
-        `Our project aims to help users find all the garbage disposal locations near them. They would open the app on their phones to see on the maps to find the nearest one. We plan on having every user have an account for this application.`,
-        skills: ['Dart', 'C++', 'CMake', 'HTML', 'C', 'Swift'],
-        tags: ['mobile app', 'web development', 'environment', 'geography', 'mapping'],
-        links: [
-            {
-                type: 'GitHub',
-                link: 'https://github.com/Garbage-Disposal-Locations-App/Garbage-Disposal-Locations-App'
-            }
-        ]
-    },
-
-    {
-        id: 11,
-        name: 'Quantum Quacks',
-        creator: 'mdrislam30',
-        description: 
-        `A stock prediction validator`,
-        skills: ['Node', 'Express', 'React', 'HTML', 'CSS', 'MySQL'],
-        tags: ['web development', 'productivity', 'finance'],
-        links: [
-            {
-                type: 'GitHub',
-                link: 'https://github.com/mdrislam30/Quantum-Quacks'
-            }
-        ]
-    }
-
 ];
 
-module.exports = projectInfos;
+module.exports = initialProjects;
