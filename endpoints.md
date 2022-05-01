@@ -9,6 +9,7 @@ Note: All routes are prefixed by `/api`.
 | [🔗](#post-authsignin)                              | `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
 | [🔗](#post-authsignup)                              |                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
 | [🔗](#get-usersid)                                  | `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
+| [🔗](#get-userscreatedprojects)                     | `/users/`         | GET `/users/createdProjects`                              | Member approval                  | ✅     |
 | [🔗](#put-usersid)                                  |                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
 | [🔗](#get-projects)                                 | `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
 | [🔗](#get-projectsid)                               |                   | GET `/projects/:id`                                       | Project page                   | ✅     |
@@ -113,6 +114,22 @@ If successful, results in `200` status code and profile info in the form of key-
 
 Otherwise, results in a `500` error status code with a message about the error.
 
+## GET `/users/createdProjects`
+
+### Description
+
+Get projects a user has created
+
+### Header
+
+`authorization`: token
+
+### Result
+
+If successful, results in `200` status code and an array containing objects with some info of all projects in the form of key-value pairs. Otherwise, results in a `500` error status code with a message about the error.
+
+For retrieving full info about a project, refer to [GET /projects/:id endpoint](#get-projectsid)
+
 ## PUT `/users/:id`
 
 ### Description
@@ -197,10 +214,6 @@ Get information about a project (basic info, skills, tags, members, updates, etc
 ### Result
 
 If successful, results in `200` status code and project info in the form of key-value pairs. Otherwise, results in a `400` or `500` error status code with a message about the error.
-
-### Description
-
-Get info of project with ID of project
 
 ## GET `/projects/filters`
 
