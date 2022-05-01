@@ -4,6 +4,13 @@ const projectsFollowers = require('./projectsFollowers');
 // Creates mock project followers data
 const createProjectsFollowersMockData = async () => {
     try {
+        const { rows: recordsCount } = await pool.query(
+            'SELECT COUNT(*) FROM "ProjectFollower"'
+        );
+
+        // Don't insert mock data if there is enough records already
+        if (recordsCount[0]['count'] >= 6) return;
+
         for (const projectFollower of projectsFollowers) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -28,9 +35,13 @@ const createProjectsFollowersMockData = async () => {
                 ',
                     [projectFollower.project_id, projectFollower.username]
                 );
-            } catch (err) {}
+            } catch (err) {
+                console.log(err);
+            }
         }
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = createProjectsFollowersMockData;

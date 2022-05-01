@@ -4,6 +4,13 @@ const usersReviews = require('./usersReviews');
 // Creates mock user reviews data
 const createUserReviewsMockData = async () => {
     try {
+        const { rows: recordsCount } = await pool.query(
+            'SELECT COUNT(*) FROM "UserReview"'
+        );
+
+        // Don't insert mock data if there is enough records already
+        if (recordsCount[0]['count'] >= 9) return;
+
         for (const userReview of usersReviews) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -21,9 +28,13 @@ const createUserReviewsMockData = async () => {
                         userReview.body,
                     ]
                 );
-            } catch (err) {}
+            } catch (err) {
+                console.log(err);
+            }
         }
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = createUserReviewsMockData;

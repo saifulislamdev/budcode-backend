@@ -5,6 +5,13 @@ const usersInfos = require('./users');
 // Creates mock user data
 const createUsersMockData = async () => {
     try {
+        const { rows: recordsCount } = await pool.query(
+            'SELECT COUNT(*) FROM "User"'
+        );
+
+        // Don't insert mock data if there is enough records already
+        if (recordsCount[0]['count'] >= 20) return;
+
         let promises = [];
 
         const salt = await bcrypt.genSalt();
@@ -62,11 +69,15 @@ const createUsersMockData = async () => {
                             )
                         );
                     }
-            } catch (err) {}
+            } catch (err) {
+                console.log(err);
+            }
         }
 
         await Promise.all(promises);
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = createUsersMockData;

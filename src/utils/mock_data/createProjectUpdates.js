@@ -4,6 +4,13 @@ const projectsUpdates = require('./projectsUpdates');
 // Creates mock project updates data
 const createProjectUpdatesMockData = async () => {
     try {
+        const { rows: recordsCount } = await pool.query(
+            'SELECT COUNT(*) FROM "ProjectUpdate"'
+        );
+
+        // Don't insert mock data if there is enough records already
+        if (recordsCount[0]['count'] >= 11) return;
+
         for (const projectUpdate of projectsUpdates) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -22,9 +29,13 @@ const createProjectUpdatesMockData = async () => {
                         projectUpdate.author,
                     ]
                 );
-            } catch (err) {}
+            } catch (err) {
+                console.log(err);
+            }
         }
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = createProjectUpdatesMockData;
