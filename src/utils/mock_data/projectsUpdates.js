@@ -3,17 +3,15 @@ const projectsUpdates = [
         id: 1,
         project_id: 1,
         subject: 'Starting development!',
-        body: '\
-            Hello World! We are starting the development process for our project!\
-            Our code can be viewed on the GitHub link in our project page.',
-        author: 'anvinhtr',
+        body: 'Hello World! We are starting the development process for our project! Our code can be viewed on the GitHub link in our project page.',
+        author: 'abdulimtiaz',
     },
     {
         id: 2,
         project_id: 1,
         subject: 'Halfway point reached!',
         body: 'Getting ready for midterm presentations! Halfway done with our project!',
-        author: 'abdulimtiaz',
+        author: 'anvinhtr',
     },
     {
         id: 3,
@@ -26,18 +24,14 @@ const projectsUpdates = [
         id: 4,
         project_id: 1,
         subject: 'Heroku issues',
-        body: '\
-            Heroku has been having issues lately with automatic deployments. \
-            Deployments for new changes will be done manually going forward.',
+        body: 'Heroku has been having issues lately with automatic deployments. Deployments for new changes will be done manually going forward.',
         author: 'abdulimtiaz',
     },
     {
         id: 5,
         project_id: 2,
         subject: 'Hello!',
-        body: '\
-            We are starting the development process for our project!\
-            Our code can be viewed on the GitHub link in our project page.',
+        body: 'We are starting the development process for our project! Our code can be viewed on the GitHub link in our project page.',
         author: 'tanviryouhana',
     },
     {
@@ -51,10 +45,7 @@ const projectsUpdates = [
         id: 7,
         project_id: 2,
         subject: 'Want to develop with us?',
-        body: "\
-            We are now accepting new members. \
-            Care to join us? \
-            Hit the 'Interested' button on our project page!",
+        body: "We are now accepting new members. Care to join us? Hit the 'Interested' button on our project page!",
         author: 'tanviryouhana',
     },
     {
