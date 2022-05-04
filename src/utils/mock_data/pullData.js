@@ -68,7 +68,7 @@ const fetchRepos = async (query) => {
 const generateProjects = async (topics) => {
 
     // start at id=6 because of reserved first 5 ids
-    let id = 6;
+    let id = 11;
 
     // up to 100 projects will be fetched for each topic
     // the actual number may be smaller due to filtering out projects without tags/skills/description
