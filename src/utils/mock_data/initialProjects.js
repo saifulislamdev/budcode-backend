@@ -72,6 +72,75 @@ const initialProjects = [
             }
         ]
     },
+
+    {
+        id: 6,
+        name: 'Security Sentry',
+        creator: 'johndoe',
+        description: `A program to detect strangers entering a building through CCTV`,
+        skills: ['C', 'Python', 'PyTorch'],
+        tags: ['computer vision', 'artificial intelligence', 'machine learning']
+    },
+
+    {
+        id: 7,
+        name: 'FitnessApp',
+        creator: 'refatmonjur',
+        description: `An app to keep track of your exercise routines`,
+        skills: ['Swift', 'Ruby'],
+        tags: ['mobile development', 'mobile application', 'fitness', 'exercise'],
+        links: [
+            {
+                type: 'GitHub',
+                link: 'https://github.com/refatmonjur/FitnessApp'
+            }
+        ]
+    },
+
+    {
+        id: 8,
+        name: 'MemeIt',
+        creator: 'akbarhaider',
+        description: `An application to view different memes.`,
+        skills: ['Java', 'Android'],
+        tags: ['mobile development', 'mobile application', 'humor'],
+        links: [
+            {
+                type: 'GitHub',
+                link: 'https://github.com/ahaider004/MemeIt-1'
+            }
+        ]
+    },
+
+    {
+        id: 9,
+        name: 'Flixter',
+        creator: 'tanzilbaraskar',
+        description: `Flixster is an app that allows users to browse movies from the The Movie Database API.`,
+        skills: ['Java', 'Android'],
+        tags: ['mobile development', 'mobile application', 'entertainment'],
+        links: [
+            {
+                type: 'GitHub',
+                link: 'https://github.com/tanzil7/Flixster'
+            }
+        ]
+    },
+
+    {
+        id: 10,
+        name: 'Quantum Quacks',
+        creator: 'mdrislam30',
+        description: `A web app that will serve to check stock market predictions.`,
+        skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Node', 'Express'],
+        tags: ['mobile development', 'mobile application', 'entertainment'],
+        links: [
+            {
+                type: 'GitHub',
+                link: 'https://github.com/mdrislam30/Quantum-Quacks'
+            }
+        ]
+    }
 ];
 
 module.exports = initialProjects;
