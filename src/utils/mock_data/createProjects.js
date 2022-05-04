@@ -4,7 +4,6 @@ const path = require('path');
 
 const initialProjects = require('./initialProjects');
 const projectInfos = require('./projectInfos');
-// const projectInfos = [];
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
