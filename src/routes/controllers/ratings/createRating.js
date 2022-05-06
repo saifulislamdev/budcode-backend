@@ -12,7 +12,11 @@ const createRating = async (req, res) => {
             subject,
             body,
         };
-        validatingBodyContent(required, res);
+        
+        const { isValid, msg } = validatingBodyContent(required);
+        if (!isValid) {
+            return res.status(400).json({ msg: msg });
+        }
 
         // put into helper function later
         const canReview = await checkReviewability(username, reviewed_username);

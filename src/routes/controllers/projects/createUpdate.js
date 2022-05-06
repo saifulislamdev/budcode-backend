@@ -10,7 +10,11 @@ const createUpdate = async (req, res) => {
             subject,
             body,
         };
-        validatingBodyContent(required, res);
+        
+        const { isValid, msg } = validatingBodyContent(required);
+        if (!isValid) {
+            return res.status(400).json({ msg: msg });
+        }
 
         await pool.query(
             `INSERT INTO "ProjectUpdate" 

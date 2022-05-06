@@ -13,7 +13,11 @@ const signIn = async (req, res) => {
             username: username,
             password: password,
         };
-        validatingBodyContent(required, res);
+
+        const { isValid, msg } = validatingBodyContent(required);
+        if (!isValid) {
+            return res.status(400).json({ msg: msg });
+        }
 
         // verify matching username
         const query =
