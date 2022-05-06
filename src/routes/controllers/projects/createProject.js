@@ -12,7 +12,11 @@ const createProject = async (req, res) => {
             skills,
             tags,
         };
-        validatingBodyContent(required, res);
+
+        const { isValid, msg } = validatingBodyContent(required);
+        if (!isValid) {
+            return res.status(400).json({ msg: msg });
+        }
 
         const result = await pool.query(
             'INSERT INTO "Project" (name, creator, description) VALUES ($1, $2, $3) RETURNING id',
