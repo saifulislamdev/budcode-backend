@@ -67,7 +67,7 @@ const createProject = async (req, res) => {
         }
 
         await Promise.all(promises);
-        return res.status(201).json({ msg: 'Project created' });
+        return res.status(201).json({ id: id, msg: 'Project created' });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ msg: 'Internal server error' });
