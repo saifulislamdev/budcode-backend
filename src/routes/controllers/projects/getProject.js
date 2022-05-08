@@ -62,7 +62,7 @@ const getProject = async (req, res) => {
         const { rows: members } = await pool.query(
             'SELECT username, created_at AS "joinedAt" \
             FROM "ProjectMember" \
-            WHERE project_id = $1',
+            WHERE project_id = $1 AND status = true',
             [id]
         );
 
@@ -155,7 +155,7 @@ const getProject = async (req, res) => {
                 'SELECT exists( \
                     SELECT created_at \
                     FROM "ProjectMember" \
-                    WHERE username = $1 AND project_id = $2 \
+                    WHERE username = $1 AND project_id = $2 AND status = true \
                 )',
                 [username, id]
             );
@@ -173,17 +173,15 @@ const getProject = async (req, res) => {
 
         // get mutual skills between project and user
         let { rows: userMutualSkills } = await pool.query({
-            text: 
-            'SELECT "UserSkill".skill \
+            text: 'SELECT "UserSkill".skill \
             FROM "UserSkill" \
             INNER JOIN "ProjectSkill" \
             ON "UserSkill".skill = "ProjectSkill".skill \
             WHERE username = $1 \
             AND project_id = $2',
             values: [username, id],
-            rowMode: 'array'
-        }
-        )
+            rowMode: 'array',
+        });
         userMutualSkills = userMutualSkills.flat(); // flat nested array
 
         const projectInfo = {
@@ -202,7 +200,7 @@ const getProject = async (req, res) => {
             isUserAMember: isUserAMember,
             isUserFollowing: isUserFollowing,
             isValidUser: isValidUser,
-            userMutualSkills: userMutualSkills
+            userMutualSkills: userMutualSkills,
         };
 
         return res.status(200).json(projectInfo);

@@ -28,7 +28,9 @@ const createMemberRequest = async (req, res) => {
             [id, username]
         );
         if (alreadyMember[0].exists)
-            return res.status(400).json({ msg: 'Already a member' });
+            return res.status(400).json({
+                msg: 'Already a member! If you were previously a member, the creator has to manually add you.',
+            });
 
         // check if a request was already made by user in the past
         const { rows: requestExists } = await pool.query(
