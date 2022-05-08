@@ -30,7 +30,11 @@ const signUp = async (req, res) => {
             email: email,
             firstName: firstName,
         };
-        validatingBodyContent(required, res);
+        
+        const { isValid, msg } = validatingBodyContent(required);
+        if (!isValid) {
+            return res.status(400).json({ msg: msg });
+        }
 
         // verify if unique user (unique username and email)
         const query =
