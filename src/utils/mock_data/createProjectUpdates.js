@@ -36,7 +36,7 @@ const createProjectUpdatesMockData = async () => {
 
         // Set auto-increment after insertions with explicit id
         await pool.query(
-            `SELECT setval('"ProjectUpdate_id_seq"', (SELECT MAX(id) from "ProjectUpdate"))`
+            `SELECT setval(quote_ident('ProjectUpdate_id_seq'), (SELECT MAX(id) from "ProjectUpdate"))`
         );
     } catch (err) {
         console.log(err);
