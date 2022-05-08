@@ -1,13 +1,13 @@
 const dotenv = require('dotenv');
 const path = require('path');
 
-const createJoinRequests = require('./mock_data/createJoinRequests');
-const createProjects = require('./mock_data/createProjects');
-const createProjectFollowers = require('./mock_data/createProjectFollowers');
-const createProjectUpdates = require('./mock_data/createProjectUpdates');
-const createUsers = require('./mock_data/createUsers');
-const createUserReviews = require('./mock_data/createUserReviews');
-const handleJoinRequests = require('./mock_data/handleJoinRequests');
+const createJoinRequests = require('./createJoinRequests');
+const createProjects = require('./createProjects');
+const createProjectFollowers = require('./createProjectFollowers');
+const createProjectUpdates = require('./createProjectUpdates');
+const createUsers = require('./createUsers');
+const createUserReviews = require('./createUserReviews');
+const handleJoinRequests = require('./handleJoinRequests');
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 

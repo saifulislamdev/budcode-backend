@@ -1,4 +1,4 @@
-const { pool } = require('../db');
+const { pool } = require('../utils/db');
 const projectsFollowers = require('./projectsFollowers');
 
 // Creates mock project followers data

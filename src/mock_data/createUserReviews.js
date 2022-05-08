@@ -1,4 +1,4 @@
-const { pool } = require('../db');
+const { pool } = require('../utils/db');
 const usersReviews = require('./usersReviews');
 
 // Creates mock user reviews data
