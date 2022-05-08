@@ -26,9 +26,12 @@ const getAllProjects = async (req, res) => {
                                             FROM "ProjectTag"
                                             WHERE tag = ANY ($2)
                                             GROUP BY project_id
-                                            HAVING COUNT(DISTINCT tag) = array_length($1, 1))
-                                AND (SELECT bool_or(position(searchTerm in name) > 0)
-                                    FROM unnest($3::text[]) searchTerm)`,
+                                            HAVING COUNT(DISTINCT tag) = array_length($2, 1))
+                                AND ((SELECT bool_or(strpos(name, searchTerm) > 0)
+                                        FROM unnest($3::citext[]) searchTerm)
+                                    OR id IN (SELECT project_id 
+                                            FROM "ProjectTag"
+                                            WHERE tag = ANY ($3)))`,
                         [req.query.skill, req.query.tag, searchTerms]
                     );
                 } else if (req.query.skill) {
@@ -40,8 +43,11 @@ const getAllProjects = async (req, res) => {
                                         WHERE skill = ANY ($1)
                                         GROUP BY project_id
                                         HAVING COUNT(DISTINCT skill) = array_length($1, 1))
-                                    AND (SELECT bool_or(position(searchTerm in name) > 0)
-                                        FROM unnest($2::text[]) searchTerm)`,
+                                    AND ((SELECT bool_or(strpos(name, searchTerm) > 0)
+                                            FROM unnest($2::citext[]) searchTerm)
+                                        OR id IN (SELECT project_id 
+                                                FROM "ProjectTag"
+                                                WHERE tag = ANY ($2)))`,
                             [req.query.skill, searchTerms]
                         );
                 } else if (req.query.tag) {
@@ -53,9 +59,23 @@ const getAllProjects = async (req, res) => {
                                     WHERE tag = ANY ($1)
                                     GROUP BY project_id
                                     HAVING COUNT(DISTINCT tag) = array_length($1, 1))
-                                AND (SELECT bool_or(position(searchTerm in name) > 0)
-                                    FROM unnest($2::text[]) searchTerm)`,
+                                AND ((SELECT bool_or(strpos(name, searchTerm) > 0)
+                                        FROM unnest($2::citext[]) searchTerm)
+                                    OR id IN (SELECT project_id 
+                                            FROM "ProjectTag"
+                                            WHERE tag = ANY ($2)))`,
                         [req.query.tag, searchTerms]
+                    );
+                } else {
+                    projects = await pool.query(
+                        `SELECT id,name,description,creator,status,created_at 
+                        FROM "Project" 
+                        WHERE ((SELECT bool_or(strpos(name, searchTerm) > 0)
+                                FROM unnest($1::citext[]) searchTerm)
+                                OR id IN (SELECT project_id 
+                                            FROM "ProjectTag"
+                                            WHERE tag = ANY ($1)))`,
+                        [searchTerms]
                     );
                 }
             } else {
@@ -72,7 +92,7 @@ const getAllProjects = async (req, res) => {
                                     FROM "ProjectTag"
                                     WHERE tag = ANY ($2)
                                     GROUP BY project_id
-                                    HAVING COUNT(DISTINCT tag) = array_length($1, 1))`,
+                                    HAVING COUNT(DISTINCT tag) = array_length($2, 1))`,
                         [req.query.skill, req.query.tag]
                     );
                 } else if (req.query.skill) {
