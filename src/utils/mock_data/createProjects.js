@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const createProjects = async () => {
     try {
-        // check if mock data was already inserted
+        // check if enough data already exists
         const { rowCount } = await pool.query(
             `SELECT id FROM "Project" LIMIT 300`
         );

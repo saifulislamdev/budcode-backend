@@ -15,6 +15,7 @@ const handleJoinRequests = async () => {
     let promises = [];
 
     for (const joinRequest of joinRequests) {
+        // One of the join requests will be denied, rest are accepted
         if (joinRequest.username === 'patrick' && joinRequest.id === 1) {
             joinRequest.decision = 'Denied';
         } else {
