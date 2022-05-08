@@ -8,15 +8,18 @@ const initialProjects = [
         tags: ['web development', 'full-stack development'],
         links: [
             {
-                type: 'GitHub',
-                link: 'https://github.com/saifulislamdev/budcode-backend'
+                type: 'Frontend repo',
+                link: 'https://github.com/saifulislamdev/budcode-frontend',
             },
-
+            {
+                type: 'Backend repo',
+                link: 'https://github.com/saifulislamdev/budcode-backend',
+            },
             {
                 type: 'Frontend deployment',
-                link: 'https://budcode.netlify.app/'
-            }
-        ]
+                link: 'https://budcode.netlify.app/',
+            },
+        ],
     },
 
     {
@@ -29,9 +32,9 @@ const initialProjects = [
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/200ok-ch/organice'
-            }
-        ]
+                link: 'https://github.com/Tanvir-Youhana/Organice',
+            },
+        ],
     },
 
     {
@@ -39,14 +42,22 @@ const initialProjects = [
         name: 'Team Up',
         creator: 'abdulimtiaz',
         description: `A full-stack web application to help with teaming and scheduling meetings and creating polls`,
-        skills: ['Python', 'JavaScript', 'HTML', 'CSS', 'jQuery', 'Flask', 'SQLite'],
+        skills: [
+            'Python',
+            'JavaScript',
+            'HTML',
+            'CSS',
+            'jQuery',
+            'Flask',
+            'SQLite',
+        ],
         tags: ['web development', 'full-stack development', 'charity'],
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/sajadgzd/TeamUp'
-            }
-        ]
+                link: 'https://github.com/sajadgzd/TeamUp',
+            },
+        ],
     },
 
     {
@@ -55,7 +66,7 @@ const initialProjects = [
         creator: 'saif',
         description: `A racing game that incorporates aspects from other genres, like RPG and shoot-em-up games`,
         skills: ['C#', 'Unity'],
-        tags: ['gaming', 'racing']
+        tags: ['gaming', 'racing'],
     },
 
     {
@@ -64,13 +75,18 @@ const initialProjects = [
         creator: 'tufayelahmed',
         description: `A graduate program management system`,
         skills: ['JavaScript', 'HTML', 'CSS'],
-        tags: ['web development', 'full-stack development', 'education', 'management'],
+        tags: [
+            'web development',
+            'full-stack development',
+            'education',
+            'management',
+        ],
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/Tufayel5/Csc-322-Final-Project-1'
-            }
-        ]
+                link: 'https://github.com/Tufayel5/Csc-322-Final-Project-1',
+            },
+        ],
     },
 
     {
@@ -79,7 +95,11 @@ const initialProjects = [
         creator: 'johndoe',
         description: `A program to detect strangers entering a building through CCTV`,
         skills: ['C', 'Python', 'PyTorch'],
-        tags: ['computer vision', 'artificial intelligence', 'machine learning']
+        tags: [
+            'computer vision',
+            'artificial intelligence',
+            'machine learning',
+        ],
     },
 
     {
@@ -88,13 +108,18 @@ const initialProjects = [
         creator: 'refatmonjur',
         description: `An app to keep track of your exercise routines`,
         skills: ['Swift', 'Ruby'],
-        tags: ['mobile development', 'mobile application', 'fitness', 'exercise'],
+        tags: [
+            'mobile development',
+            'mobile application',
+            'fitness',
+            'exercise',
+        ],
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/refatmonjur/FitnessApp'
-            }
-        ]
+                link: 'https://github.com/refatmonjur/FitnessApp',
+            },
+        ],
     },
 
     {
@@ -107,9 +132,9 @@ const initialProjects = [
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/ahaider004/MemeIt-1'
-            }
-        ]
+                link: 'https://github.com/ahaider004/MemeIt-1',
+            },
+        ],
     },
 
     {
@@ -122,9 +147,9 @@ const initialProjects = [
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/tanzil7/Flixster'
-            }
-        ]
+                link: 'https://github.com/tanzil7/Flixster',
+            },
+        ],
     },
 
     {
@@ -137,10 +162,10 @@ const initialProjects = [
         links: [
             {
                 type: 'GitHub',
-                link: 'https://github.com/mdrislam30/Quantum-Quacks'
-            }
-        ]
-    }
+                link: 'https://github.com/mdrislam30/Quantum-Quacks',
+            },
+        ],
+    },
 ];
 
 module.exports = initialProjects;
