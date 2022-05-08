@@ -110,7 +110,11 @@ Get user profile info (and ratings)
 
 ### Result
 
-If successful, results in `200` status code and profile info in the form of key-value pairs. Be mindful that the `visitingUserMutualProjects` property may not always exist (that is, the key won't exist). It exists when the token is valid. When the token is invalid or there is not one given, the property won't exist. Another thing to be mindful about is that the value will be an empty array when the token is valid but the visiting user has no mutual projects.
+If successful, results in `200` status code and profile info in the form of key-value pairs. 
+
+`projectMemberships` contains projects that the user is a part of currently or was in the past.
+
+Be mindful that the `visitingUserMutualProjects` property may not always exist (that is, the key won't exist). It exists when the token is valid. When the token is invalid or there is not one given, the property won't exist. Another thing to be mindful about is that the value will be an empty array when the token is valid but the visiting user has no mutual projects.
 
 Otherwise, results in a `500` error status code with a message about the error.
 
@@ -477,11 +481,11 @@ The user associated with the token should match the user specified by `id`. Othe
 
 ### Description
 
-Get project updates for a user
+Get project updates for a user that they view on their feed
 
 ### Header
 
-`authorization`: token (if exists)
+`authorization`: token
 
 ### Result
 

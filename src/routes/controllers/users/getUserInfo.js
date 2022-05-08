@@ -59,7 +59,7 @@ const getUserInfo = async (req, res) => {
             [usernameFromRoute]
         );
 
-        // gather the projects that the user is part of
+        // gather the projects that the user is part of or was a part of in the past
         const { rows: projectMemberships } = await pool.query(
             '\
             SELECT \
@@ -93,6 +93,7 @@ const getUserInfo = async (req, res) => {
         let canEdit = usernameFromToken === usernameFromRoute ? true : false;
 
         // check if visiting user can review the user of the profile they are visiting
+        // TODO: make sure timelines are in sync (they both worked on project(s) at the same time)
         let canReview = false;
         let mutualProjects;
         if (
@@ -115,7 +116,10 @@ const getUserInfo = async (req, res) => {
                     [usernameFromToken, usernameFromRoute]
                 );
             if (hasMutualProjects) {
-                canReview = await checkReviewability(usernameFromToken, usernameFromRoute);
+                canReview = await checkReviewability(
+                    usernameFromToken,
+                    usernameFromRoute
+                );
                 mutualProjects = projects;
             }
         }
