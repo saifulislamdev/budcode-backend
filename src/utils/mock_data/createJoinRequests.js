@@ -3,11 +3,14 @@ const joinRequests = require('./joinRequests');
 
 const createJoinRequests = async () => {
     try {
-
-        const { rowCount } = await pool.query(`SELECT id FROM "ProjectJoinRequest" LIMIT 20`);
+        const { rowCount } = await pool.query(
+            `SELECT id FROM "ProjectJoinRequest" LIMIT 20`
+        );
         if (rowCount === 20) {
             return;
         }
+
+        console.log('Mock data: Creating join requests for projects...');
 
         let promises = [];
 
@@ -15,7 +18,11 @@ const createJoinRequests = async () => {
             promises.push(
                 pool.query(
                     `INSERT INTO "ProjectJoinRequest"(project_id, username, message) VALUES($1, $2, $3)`,
-                    [joinRequest.id, joinRequest.username, joinRequest.message || '']
+                    [
+                        joinRequest.id,
+                        joinRequest.username,
+                        joinRequest.message || '',
+                    ]
                 )
             );
 
@@ -33,7 +40,7 @@ const createJoinRequests = async () => {
         }
 
         await Promise.all(promises);
-        console.log('Mock project join requests created');
+        console.log('Mock data: Finished creating join requests for projects');
     } catch (err) {
         console.error(err);
     }

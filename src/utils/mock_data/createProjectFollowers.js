@@ -11,6 +11,8 @@ const createProjectsFollowersMockData = async () => {
         // Don't insert mock data if there is enough records already
         if (recordsCount[0]['count'] >= 6) return;
 
+        console.log('Mock data: Creating followers for projects...');
+
         for (const projectFollower of projectsFollowers) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -39,6 +41,8 @@ const createProjectsFollowersMockData = async () => {
                 console.log(err);
             }
         }
+
+        console.log('Mock data: Finished creating followers for projects');
     } catch (err) {
         console.log(err);
     }

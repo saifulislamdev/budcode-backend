@@ -9,14 +9,15 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const createProjects = async () => {
     try {
-
         // check if mock data was already inserted
-        const { rowCount } = await pool.query(`SELECT id FROM "Project" LIMIT 300`);
+        const { rowCount } = await pool.query(
+            `SELECT id FROM "Project" LIMIT 300`
+        );
         if (rowCount === 300) {
             return;
         }
 
-        console.log('Creating projects...');
+        console.log('Mock data: Creating projects...');
 
         const topics = [
             'cooking',
@@ -33,7 +34,7 @@ const createProjects = async () => {
             'remote',
             'music',
             'stocks',
-            'password'
+            'password',
         ];
 
         projectInfos.push(...initialProjects);
@@ -48,17 +49,21 @@ const createProjects = async () => {
                         (id, name, description, creator)
                         VALUES ($1, $2, $3, $4)
                     `,
-                    [projectInfo.id, projectInfo.name, projectInfo.description, projectInfo.creator]
+                    [
+                        projectInfo.id,
+                        projectInfo.name,
+                        projectInfo.description,
+                        projectInfo.creator,
+                    ]
                 )
             );
         }
 
         await Promise.all(promises);
-        
+
         promises = [];
         // insert into ProjectMember, ProjectSkill, ProjectTag, ProjectLink
         for (const projectInfo of projectInfos) {
-
             promises.push(
                 pool.query(
                     `INSERT INTO "ProjectMember" 
@@ -90,7 +95,7 @@ const createProjects = async () => {
                 for (const link of projectInfo.links) {
                     promises.push(
                         pool.query(
-                            `INSERT INTO "ProjectLink" (project_id, link, type) VALUES ($1, $2, $3)`, 
+                            `INSERT INTO "ProjectLink" (project_id, link, type) VALUES ($1, $2, $3)`,
                             [projectInfo.id, link.link, link.type]
                         )
                     );
@@ -101,8 +106,10 @@ const createProjects = async () => {
         await Promise.all(promises);
 
         // Update id incrementation sequence
-        await pool.query(`SELECT setval(quote_ident('Project_id_seq'), (SELECT MAX(id) from "Project"))`);
-        console.log('Mock project data created');
+        await pool.query(
+            `SELECT setval(quote_ident('Project_id_seq'), (SELECT MAX(id) from "Project"))`
+        );
+        console.log('Mock data: Finished creating projects');
     } catch (err) {
         console.error(err);
     }

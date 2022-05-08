@@ -6,7 +6,7 @@ const createTables = async () => {
     for (const [name, creationStatement] of Object.entries(models)) {
         try {
             await pool.query(creationStatement);
-            console.log(`${name} table created`);
+            console.log(`Table/Extension: ${name} created or exists already`);
         } catch (err) {
             console.log(err);
         }

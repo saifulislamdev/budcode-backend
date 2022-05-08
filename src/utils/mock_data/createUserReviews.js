@@ -11,6 +11,8 @@ const createUserReviewsMockData = async () => {
         // Don't insert mock data if there is enough records already
         if (recordsCount[0]['count'] >= 9) return;
 
+        console.log('Mock data: Creating reviews for users...');
+
         for (const userReview of usersReviews) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -32,6 +34,8 @@ const createUserReviewsMockData = async () => {
                 console.log(err);
             }
         }
+
+        console.log('Mock data: Finished creating reviews for users');
     } catch (err) {
         console.log(err);
     }
