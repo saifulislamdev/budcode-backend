@@ -12,6 +12,8 @@ const createUsersMockData = async () => {
         // Don't insert mock data if there is enough records already
         if (recordsCount[0]['count'] >= 20) return;
 
+        console.log('Mock data: Creating users...');
+
         let promises = [];
 
         const salt = await bcrypt.genSalt();
@@ -73,8 +75,8 @@ const createUsersMockData = async () => {
                 console.log(err);
             }
         }
-
         await Promise.all(promises);
+        console.log('Mock data: Finished creating users');
     } catch (err) {
         console.log(err);
     }

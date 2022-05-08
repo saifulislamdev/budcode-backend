@@ -11,6 +11,8 @@ const createProjectUpdatesMockData = async () => {
         // Don't insert mock data if there is enough records already
         if (recordsCount[0]['count'] >= 11) return;
 
+        console.log('Mock data: Creating updates for projects...');
+
         for (const projectUpdate of projectsUpdates) {
             // Inner try-catch to make sure if one statement fails, the subsequent ones don't halt
             try {
@@ -38,6 +40,8 @@ const createProjectUpdatesMockData = async () => {
         await pool.query(
             `SELECT setval(quote_ident('ProjectUpdate_id_seq'), (SELECT MAX(id) from "ProjectUpdate"))`
         );
+
+        console.log('Mock data: Finished creating updates for projects');
     } catch (err) {
         console.log(err);
     }
