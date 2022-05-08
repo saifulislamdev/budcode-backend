@@ -112,9 +112,6 @@ const updateProject = async (req, res) => {
             }
         }
 
-        // TODO: don't delete all members instead remove members not passed in and
-        // insert rest that are not already included (or just remove the one member)
-
         // change project members if passed in body
         if (Array.isArray(members)) {
             if (!members.includes(username))
@@ -123,23 +120,52 @@ const updateProject = async (req, res) => {
                 return res.status(400).json({
                     msg: 'Cannot remove yourself as you are the project creator',
                 });
-            // remove all members currently listed for the project
-            await pool.query(
-                'DELETE FROM "ProjectMember" WHERE project_id = $1',
-                [id]
+
+            // gather current project members
+            let { rows: currMembers } = await pool.query({
+                text: 'SELECT username FROM "ProjectMember" WHERE project_id = $1 AND status = true',
+                values: [id],
+                rowMode: 'array',
+            });
+            currMembers = currMembers.flat(); // flatten nested array
+
+            // gather current project members that were not passed in (to be removed)
+            let removedMembers = currMembers.filter(
+                (member) => !members.includes(member)
             );
-            if (members.length) {
-                // parameterPlaceholders becomes ["($1, $2)", "($1, $3)", ...]
-                const parameterPlaceholders = members.map((member, i) => {
-                    return `($1, $${i + 2})`;
-                });
-                // add members passed in through body
-                const parameters = [id].concat(members);
+
+            // gather new project members
+            let newMembers = members.filter(
+                (member) => !currMembers.includes(member)
+            );
+
+            // "remove" project members
+            // essentially, update column to indicate they are not active members anymore
+            removedMembers.map(async (removedMember) => {
                 await pool.query(
-                    `INSERT INTO "ProjectMember" (project_id, username) VALUES ${parameterPlaceholders}`,
-                    parameters
+                    'UPDATE "ProjectMember" SET status = false WHERE username = $1 AND project_id = $2',
+                    [removedMember, id]
                 );
-            }
+            });
+
+            // add new project members
+            // TODO: this implementation could have been improved by creating a SQL function
+            newMembers.map(async (newMember) => {
+                const { rowCount: memberExists } = await pool.query(
+                    'SELECT username FROM "ProjectMember" WHERE username = $1 AND project_id = $2',
+                    [newMember, id]
+                );
+                if (memberExists)
+                    await pool.query(
+                        'UPDATE "ProjectMember" SET status = true WHERE username = $1 AND project_id = $2',
+                        [newMember, id]
+                    );
+                else
+                    await pool.query(
+                        'INSERT INTO "ProjectMember"(project_id, username) VALUES($1, $2)',
+                        [id, newMember]
+                    );
+            });
         }
 
         return res.sendStatus(204);
