@@ -1,4 +1,4 @@
-const { pool } = require('../db');
+const { pool } = require('../utils/db');
 const dotenv = require('dotenv');
 const path = require('path');
 

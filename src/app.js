@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 const { verifyDBConnection } = require('./utils/db');
 const createTables = require('./utils/createTables');
-const seedDB = require('./utils/seedDB');
+const seedDB = require('./mock_data/seedDB');
 
 // use environment variables
 dotenv.config();
