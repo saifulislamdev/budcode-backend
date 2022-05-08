@@ -27,9 +27,11 @@ Run the following to install the dependencies
 npm i
 ```
 
-### Setup env file
+### Setup environment variables
 
 Create a `.env` file in the root of the repository with the following environment variables.
+
+When providing your PostgreSQL database info, providing the `DATABASE_URL` environment variable is enough. If you cannot provide this variable, you need to provide the other database config environment variables.
 
 ```bash
 # Port Number for API
@@ -37,6 +39,7 @@ Create a `.env` file in the root of the repository with the following environmen
 PORT=5000
 
 # Database config
+DATABASE_URL=YOUR_DATABASE_URL_HERE
 PGHOST=YOUR_DATABASE_HOST_HERE
 PGUSER=YOUR_DATABASE_USERNAME_HERE
 PGDATABASE=YOUR_DATABASE_NAME_HERE
@@ -44,9 +47,15 @@ PGDATABASE=YOUR_DATABASE_NAME_HERE
 # not needed if there is no password
 PGPASS=YOUR_DATABASE_PASSWORD_HERE
 
-# not needed if you don't find necessary
+# not needed if you don't find it necessary
 PGPORT=YOUR_DATABASE_PORT_HERE
 
+# provide true if you want mock data
+# if you don't want mock data, no need to specify a value for this variable
+# by default no mock data is inserted
+MOCK_DATA_INSERTION=true
+
+# JWT secret for login token
 JWT_SECRET=YOUR_SECRET_HERE
 ```
 
