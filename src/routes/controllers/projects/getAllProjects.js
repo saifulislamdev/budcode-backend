@@ -57,6 +57,14 @@ const getAllProjects = async (req, res) => {
                                     FROM unnest($2::text[]) searchTerm)`,
                         [req.query.tag, searchTerms]
                     );
+                } else {
+                    projects = await pool.query(
+                        `SELECT id,name,description,creator,status,created_at 
+                        FROM "Project" 
+                        WHERE (SELECT bool_or(position(searchTerm in name) > 0)
+                                FROM unnest($2::text[]) searchTerm)`,
+                        [searchTerms]
+                    );
                 }
             } else {
                 if (req.query.skill && req.query.tag) {
