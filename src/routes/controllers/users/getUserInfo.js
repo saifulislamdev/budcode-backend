@@ -7,6 +7,22 @@ const getUserInfo = async (req, res) => {
         const { id: usernameFromRoute } = req.params; // username of the profile being visited
         const token = req.headers['authorization']; // token comes in an authorization header
 
+        // see if user from route exists
+        const { rows: userExists } = await pool.query(
+            `
+            SELECT exists(
+                SELECT username
+                FROM "User"
+                WHERE username = $1
+                )
+            `,
+            [usernameFromRoute]
+        );
+        if (!userExists[0].exists)
+            return res.status(400).json({
+                msg: 'No such user exists',
+            });
+
         // get username from token
         let usernameFromToken;
         if (typeof token === 'string') {
