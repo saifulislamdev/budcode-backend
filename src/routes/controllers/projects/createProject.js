@@ -24,7 +24,18 @@ const createProject = async (req, res) => {
         );
         const id = result.rows[0]['id'];
 
+
+
         let promises = [];
+
+        // add project creator to project followers
+        promises.push(
+            pool.query(
+                `INSERT INTO "ProjectFollower"(project_id, username) VALUES ($1, $2)`,
+                [id, username]
+            )
+        );
+
         promises.push(
             pool.query(
                 'INSERT INTO "ProjectMember" (project_id, username) VALUES ($1, $2)',
