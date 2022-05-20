@@ -15,6 +15,7 @@ const createProject = require('./controllers/projects/createProject');
 
 const authenticateToken = require('./middlewares/authenticateToken');
 const verifyProjectCreator = require('./middlewares/verifyProjectCreator');
+const verifyProjectMember = require('./middlewares/verifyProjectMember');
 
 router.get('/', getAllProjects);
 router.get('/filters', getFilters);
@@ -29,7 +30,12 @@ router.get(
 router.post('/', authenticateToken, createProject);
 router.post('/:id/follow', authenticateToken, followProject);
 router.post('/:id/requests', authenticateToken, createMemberRequest);
-router.post('/:id/updates', authenticateToken, verifyProjectCreator, createUpdate);
+router.post(
+    '/:id/updates',
+    authenticateToken,
+    verifyProjectMember,
+    createUpdate
+);
 router.put('/:id', authenticateToken, verifyProjectCreator, updateProject);
 router.delete('/requests/:id', authenticateToken, manageMemberRequest);
 
