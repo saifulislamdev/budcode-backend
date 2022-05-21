@@ -7,7 +7,9 @@ const getAllProjects = async (req, res) => {
         // if no filters or keywords are provided
         if (!req.query.skill && !req.query.tag && !req.query.search) {
             projects = await pool.query(
-                'SELECT id,name,description,creator,status,created_at FROM "Project"'
+                `SELECT id,name,description,creator,status,created_at 
+                FROM "Project"
+                ORDER BY id ASC`
             );
         } else {
             if (req.query.search) {
