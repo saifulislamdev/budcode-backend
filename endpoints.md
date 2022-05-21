@@ -9,7 +9,7 @@ Note: All routes are prefixed by `/api`.
 | [🔗](#post-authsignin)                              | `/auth/`          | POST `/auth/signin`                                       | Sign in                        | ✅     |
 | [🔗](#post-authsignup)                              |                   | POST `/auth/signup`                                       | Sign up                        | ✅     |
 | [🔗](#get-usersid)                                  | `/users/`         | GET `/users/:id`                                          | Profile page                   | ✅     |
-| [🔗](#get-userscreatedprojects)                     | `/users/`         | GET `/users/createdProjects`                              | Member approval                  | ✅     |
+| [🔗](#get-userscreatedprojects)                     | `/users/`         | GET `/users/createdProjects`                              | Member approval                | ✅     |
 | [🔗](#put-usersid)                                  |                   | PUT `/users/:id`                                          | Profile page                   | ✅     |
 | [🔗](#get-projects)                                 | `/projects/`      | GET `/projects`                                           | Project search and suggestions | ✅     |
 | [🔗](#get-projectsid)                               |                   | GET `/projects/:id`                                       | Project page                   | ✅     |
@@ -20,11 +20,11 @@ Note: All routes are prefixed by `/api`.
 | [🔗](#post-projects)                                | `/projects/`      | POST `/projects`                                          | Project creation               | ✅     |
 | [🔗](#post-projectsidrequests)                      |                   | POST `/projects/:id/requests`                             | Member approval                | ✅     |
 | [🔗](#post-projectsidfollow)                        |                   | POST `/projects/:id/follow`                               | Project page                   | ✅     |
-| [🔗](#post-projectsidupdates)                       |                   | POST `/projects/:id/updates`                              | Feed page                      |        |
+| [🔗](#post-projectsidupdates)                       |                   | POST `/projects/:id/updates`                              | Feed page                      | ✅     |
 | [🔗](#put-projectsid)                               |                   | PUT `/projects/:id`                                       | Project page                   | ✅     |
 | [🔗](#delete-projectsrequestsid)                    |                   | DELETE `/projects/requests/:id`                           | Member approval                | ✅     |
 | [🔗](#get-notificationsuserid)                      | `/notifications/` | GET `/notifications/user/:id`                             | Notification system            | ✅     |
-| [🔗](#get-updates)                                  | `/updates/`       | GET `/updates`                                            | Feed page                      |        |
+| [🔗](#get-updates)                                  | `/updates/`       | GET `/updates`                                            | Feed page                      | ✅     |
 | [🔗](#post-ratings)                                 | `/ratings/`       | POST `/ratings`                                           | Ratings and reviews            | ✅     |
 
 Frontend components/pages that use Saiful's ([@saifulislamdev](https://github.com/saifulislamdev)) endpoints:
@@ -110,7 +110,7 @@ Get user profile info (and ratings)
 
 ### Result
 
-If successful, results in `200` status code and profile info in the form of key-value pairs. 
+If successful, results in `200` status code and profile info in the form of key-value pairs.
 
 `projectMemberships` contains projects that the user is a part of currently or was in the past.
 
