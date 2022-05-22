@@ -5,6 +5,7 @@ const UserNotification =
         subject VARCHAR(255), \
         body VARCHAR(255), \
         type NotificationType, \
+        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL, \
         PRIMARY KEY (id), \
         FOREIGN KEY(username) REFERENCES "User"(username) \
     );';
