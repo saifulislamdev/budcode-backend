@@ -12,10 +12,12 @@ const getNotificationsForUser = async (req, res) => {
                 .json({ msg: "You cannot get another user's notifications" });
 
         const { rows: notifications } = await pool.query(
-            '\
-            SELECT id, subject, body, type \
-            FROM "UserNotification" \
-            WHERE username = $1',
+            `
+            SELECT id, subject, body, type, created_at AS time
+            FROM "UserNotification"
+            WHERE username = $1
+            ORDER BY created_at DESC
+            `,
             [req.username]
         );
 
